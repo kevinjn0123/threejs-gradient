@@ -41,13 +41,10 @@ document.body.appendChild(renderer.domElement)
 /**
  * ADDING OBJECTS
  */
-// adjustLighting()
+adjustLighting()
 addElements()
 
-renderer.render(scene, camera)
-// animationLoop()
-
-// const { mesh, vertexDisplacement } = addTestObjects()
+animationLoop()
 
 /**
  * FUNCTIONS
@@ -105,7 +102,7 @@ function animationLoop() {
 
   // ------------------------- START ANIMATE -------------------------------
   window.requestAnimationFrame(animationLoop)
-  // renderer.render(scene, camera)
+  renderer.render(scene, camera)
 
-  // controls.update()
+  controls.update()
 }
