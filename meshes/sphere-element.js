@@ -1,6 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { vertexShader, fragmentShader } from "../shaders/spheres.js"
 
+// TODO: add dat GUI or https://github.com/pmndrs/leva
 const settings = {
   speed: 0.2,
   density: 1.5,
