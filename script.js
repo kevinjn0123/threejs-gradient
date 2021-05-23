@@ -95,10 +95,10 @@ function animationLoop() {
   // }
 
   // ------------------------- ANIMATE SPHERES -------------------------------
-  // mesh.material.uniforms.uTime.value = clock.getElapsedTime()
-  // mesh.material.uniforms.uSpeed.value = settings.speed
-  // mesh.material.uniforms.uNoiseDensity.value = settings.density
-  // mesh.material.uniforms.uNoiseStrength.value = settings.strength
+  mesh.material.uniforms.uTime.value = clock.getElapsedTime()
+  mesh.material.uniforms.uSpeed.value = settings.speed
+  mesh.material.uniforms.uNoiseDensity.value = settings.density
+  mesh.material.uniforms.uNoiseStrength.value = settings.strength
 
   // ------------------------- START ANIMATE -------------------------------
   window.requestAnimationFrame(animationLoop)
