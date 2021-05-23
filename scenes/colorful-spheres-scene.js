@@ -1,12 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
-import { vertexShader, fragmentShader } from "../shaders/spheres.js"
-
-const settings = {
-  speed: 0.2,
-  density: 1.5,
-  strength: 0.2,
-}
+import { sphereElement } from "../meshes/sphere-element.js"
 
 export class Scene {
   constructor() {
@@ -43,28 +37,20 @@ export class Scene {
   }
 
   addMeshElements() {
-    const geometry = new THREE.IcosahedronBufferGeometry(1, 64)
-    const material = new THREE.ShaderMaterial({
-      vertexShader: vertexShader(),
-      fragmentShader: fragmentShader(),
-      uniforms: {
-        uTime: { value: 0 },
-        uSpeed: { value: settings.speed },
-        uNoiseDensity: { value: settings.density },
-        uNoiseStrength: { value: settings.strength },
-      },
-      wireframe: true,
-    })
-    this.mesh = new THREE.Mesh(geometry, material)
+    const sphere = new sphereElement()
+    this.mesh = sphere.mesh
+    this.meshSettings = sphere.settings
+
     this.scene.add(this.mesh)
   }
 
   animationLoop() {
     // ------------------------- ANIMATE SPHERES -------------------------------
     this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
-    this.mesh.material.uniforms.uSpeed.value = settings.speed
-    this.mesh.material.uniforms.uNoiseDensity.value = settings.density
-    this.mesh.material.uniforms.uNoiseStrength.value = settings.strength
+    this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
+    this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
+    this.mesh.material.uniforms.uNoiseStrength.value =
+      this.meshSettings.strength
 
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)) // bind "this" to keep pointing the constructed scene
