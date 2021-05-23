@@ -10,17 +10,17 @@ let uniforms = {}
 
 scene = new THREE.Scene()
 camera = new THREE.PerspectiveCamera(
-  70,
+  45,
   window.innerWidth / window.innerHeight,
-  1,
-  10000
+  0.1,
+  1000
 )
-camera.position.set(0, 0, 5)
+camera.position.set(0, 0, 4)
 
-renderer = new THREE.WebGLRenderer()
+renderer = new THREE.WebGLRenderer({ antialias: true })
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
 renderer.setSize(window.innerWidth, window.innerHeight)
-renderer.setClearColor(0xffffff)
-renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setClearColor("black", 1)
 
 controls = new OrbitControls(camera, renderer.domElement)
 
@@ -29,11 +29,11 @@ document.body.appendChild(renderer.domElement)
 /**
  * ADDING OBJECTS
  */
-adjustLighting()
+// adjustLighting()
 
-const { mesh, vertexDisplacement } = addTestObjects()
+// const { mesh, vertexDisplacement } = addTestObjects()
 
-animationLoop()
+// animationLoop()
 
 /**
  * FUNCTIONS
