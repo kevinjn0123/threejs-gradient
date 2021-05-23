@@ -2,7 +2,7 @@ import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 import { vertexShader, fragmentShader } from "../shaders/flower.js"
 
-var uniforms = {
+const uniforms = {
   time: {
     type: "f",
     value: 1.0,
@@ -53,17 +53,17 @@ var uniforms = {
   },
 }
 
-var primitiveElement = function () {
+const primitiveElement = function () {
   this.mesh = new THREE.Object3D()
-  var geo = new THREE.IcosahedronGeometry(1, 6)
-  //var mat = new THREE.MeshPhongMaterial({color:0xFF0000, flatShading:true});
-  var mat = new THREE.ShaderMaterial({
+  const geo = new THREE.IcosahedronGeometry(1, 6)
+  //const mat = new THREE.MeshPhongMaterial({color:0xFF0000, flatShading:true});
+  const mat = new THREE.ShaderMaterial({
     wireframe: false,
     uniforms: uniforms,
     vertexShader: vertexShader(),
     fragmentShader: fragmentShader(),
   })
-  var mesh = new THREE.Mesh(geo, mat)
+  const mesh = new THREE.Mesh(geo, mat)
   //---
   this.mesh.add(mesh)
 }
