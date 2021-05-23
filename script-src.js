@@ -1,25 +1,4 @@
-// import { appendDiv } from "./append-div.js"
-// import * as d3 from "https://unpkg.com/d3?module"
-
-// appendDiv("Hello from inline script")
-
-// console.log("d3", d3)
-
-// import("./async-script.js").then(
-//   (moduleExports) => {
-//     moduleExports.go()
-//   },
-//   (error) => {
-//     console.error("there was an error loading the script")
-//     throw error
-//   }
-// )
-
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
-
-// const scene = new THREE.Scene()
-
-// console.log("scene", scene)
 
 let scene
 let camera
@@ -29,10 +8,6 @@ let sceneObjects = []
 let uniforms = {}
 
 scene = new THREE.Scene()
-// camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500)
-// camera.position.set(0, 0, 100)
-// camera.lookAt(0, 0, 0)
-
 camera = new THREE.PerspectiveCamera(
   70,
   window.innerWidth / window.innerHeight,
@@ -45,8 +20,6 @@ renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0xffffff)
 renderer.setPixelRatio(window.devicePixelRatio)
-
-// controls = new THREE.OrbitControls(camera, renderer.domElement)
 
 document.body.appendChild(renderer.domElement)
 
@@ -77,8 +50,6 @@ function addTestObjects() {
   }
   var material = new THREE.ShaderMaterial({
     uniforms: customUniforms,
-    // vertexShader: document.getElementById("vertexShader2").textContent,
-    // fragmentShader: document.getElementById("fragmentShader2").textContent
     fragmentShader: fragmentShader(),
     vertexShader: vertexShader(),
   })
@@ -117,18 +88,6 @@ function addTestObjects() {
 }
 
 function vertexShader() {
-  // return `
-  //   varying vec3 vUv;
-  //   varying vec4 modelViewPosition;
-  //   varying vec3 vecNormal;
-
-  //   void main() {
-  //     vUv = position;
-  //     vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);
-  //     vecNormal = (modelViewMatrix * vec4(normal, 0.0)).xyz; //????????
-  //     gl_Position = projectionMatrix * modelViewPosition;
-  //   }
-  // `;
   return `
     attribute float vertexDisplacement;
     uniform float delta;
@@ -152,15 +111,6 @@ function vertexShader() {
 }
 
 function fragmentShader() {
-  // return `
-  //     uniform vec3 colorA;
-  //     uniform vec3 colorB;
-  //     varying vec3 vUv;
-
-  //     void main() {
-  //       gl_FragColor = vec4(mix(colorA, colorB, vUv.z), 1.0);
-  //     }
-  // `
   return `
     uniform float delta;
     varying float vOpacity;
