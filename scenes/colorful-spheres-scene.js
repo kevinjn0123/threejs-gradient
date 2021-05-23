@@ -1,3 +1,5 @@
+// original sources from https://tympanus.net/codrops/2021/01/26/twisted-colorful-spheres-with-three-js/
+
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 import { sphereElement } from "../meshes/sphere-element.js"

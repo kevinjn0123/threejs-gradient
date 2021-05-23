@@ -1,3 +1,5 @@
+// original sources from https://codepen.io/jshaw3/pen/MdgoxB
+
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 import { primitiveElement } from "../meshes/primitive-element.js"
