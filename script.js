@@ -1,4 +1,5 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
+import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 
 let scene
 let camera
@@ -20,6 +21,8 @@ renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
 renderer.setClearColor(0xffffff)
 renderer.setPixelRatio(window.devicePixelRatio)
+
+controls = new OrbitControls(camera, renderer.domElement)
 
 document.body.appendChild(renderer.domElement)
 
@@ -150,4 +153,6 @@ function animationLoop() {
   // ------------------------- START ANIMATE -------------------------------
   window.requestAnimationFrame(animationLoop)
   renderer.render(scene, camera)
+
+  controls.update()
 }
