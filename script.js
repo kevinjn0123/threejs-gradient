@@ -41,9 +41,8 @@ document.body.appendChild(renderer.domElement)
 /**
  * ADDING OBJECTS
  */
-adjustLighting()
-addElements()
-
+// adjustLighting()
+addMeshElements()
 animationLoop()
 
 /**
@@ -58,7 +57,7 @@ function adjustLighting() {
   scene.add(light2)
 }
 
-function addElements() {
+function addMeshElements() {
   const geometry = new THREE.IcosahedronBufferGeometry(1, 64)
   const material = new THREE.ShaderMaterial({
     vertexShader: vertexShader(),
