@@ -186,60 +186,42 @@ export function vertexShader() {
   uniform float uSpeed;
   uniform float uNoiseDensity;
   uniform float uNoiseStrength;
+
+
   
   ${noise}
   
   void main() {
 
 
+
     float t = uTime * uSpeed;
-    float distortion = pnoise((normal + t) * uNoiseDensity, vec3(10.0)) * uNoiseStrength;
-    vec3 coord = vec3(uv, 1.0)*10.0;
-    float distortion2 = pnoise( vec3( coord.x, coord.y + uTime, coord.z ), vec3(10.0)) * uNoiseStrength;;
 
-    vec3 pos = position + (normal * distortion);
+
+    // float distortion = pnoise((normal + t) * uNoiseDensity, vec3(10.0)) * uNoiseStrength;
+
+    // vec3 pos = position + (normal * distortion);
     
-    vNormal = normal;
-
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
+    // vNormal = normal;
 
 
 
 
+    //--------basic------------
+    // vec3 scale = vec3(1.0, 1.0, 1.0);
+    // gl_Position = projectionMatrix * modelViewMatrix * vec4(pos * scale, 1.);
 
 
-    // vec3 coord = vec3(uv, 1.0)*10.0;
-    // float noise = 1 + pnoise( vec3( coord.x, coord.y + uTime, coord.z ));
-    
-    // float height = h * noise;
-    
-    // // we apply height to z because the plane is rotated on x-axis
-    // vec4 pos = vec4( position.x, position.y, height, 1.0 );
-    
-    // // output the final position
-    // gl_Position = projectionMatrix * modelViewMatrix * pos;
-//----------------------------
-    // vec3 noiseIn = vec3(uv, 1.0)*10.0;
-    // float noise = cnoise(vec3(noiseIn.x, noiseIn.y + t, noiseIn.z));
-    // noise += 1.0;
-    // float h = noise;
-    // float angle = (uv.x - centerOff) * PI;
-    // float f = abs(cos(angle));
-    // h *= pow(f, 1.5 + roadWidth);
-    
 
-    // vDisplace = h;
-    
+    //--------add displacement------------
 
-    // h*=maxHeight;
-
-    // vec3 transformed = vec3( position.x, position.y, position.z + h );
+    float displacement = 0.75 * cnoise(0.43 * position + t);
+    vec3 newPos = position + normal * displacement;
+  
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1);
 
 
-    // vec4 mvPosition = modelViewMatrix * vec4( transformed, 1.0 );
-    // gl_Position = projectionMatrix * mvPosition;
-    
-    // fogDepth = -mvPosition.z;
+
   }  
 `
 }
