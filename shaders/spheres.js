@@ -108,7 +108,7 @@ const noise = /* js */ `
 `
 
 export function vertexShader() {
-  return `  
+  return /* js */ `  
   varying vec3 vNormal;
   
   uniform float uTime;
@@ -132,7 +132,7 @@ export function vertexShader() {
 }
 
 export function fragmentShader() {
-  return `
+  return /* js */ `
   varying vec3 vNormal;
   
   uniform float uTime;
