@@ -126,7 +126,7 @@ const rotation = /* js */ `
 
 export function vertexShader() {
   return /* js */ `  
-  varying vec3 vNormal;
+  varying float vDistort;
   
   uniform float uTime;
   uniform float uSpeed;
@@ -152,7 +152,7 @@ export function vertexShader() {
     float angle = sin(uv.y * uFrequency + t) * uAmplitude;
     pos = rotateY(pos, angle);    
     
-    vNormal = normal;
+    vDistort = distortion;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
   }  
@@ -161,14 +161,16 @@ export function vertexShader() {
 
 export function fragmentShader() {
   return /* js */ `
-  varying vec3 vNormal;
+  varying float vDistort;
   
   uniform float uTime;
+  uniform float uIntensity;
   
   void main() {
-    vec3 color = vec3(1.0);
+    float distort = vDistort * uIntensity;
+    vec3 color = vec3(distort);
     
-    gl_FragColor = vec4(vNormal, 1.0);
-  }  
+    gl_FragColor = vec4(color, 1.0);
+  }   
 `
 }

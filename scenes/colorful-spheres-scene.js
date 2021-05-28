@@ -53,6 +53,9 @@ export class Scene {
     this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
     this.mesh.material.uniforms.uNoiseStrength.value =
       this.meshSettings.strength
+    this.mesh.material.uniforms.uFrequency.value = this.meshSettings.frequency
+    this.mesh.material.uniforms.uAmplitude.value = this.meshSettings.amplitude
+    this.mesh.material.uniforms.uIntensity.value = this.meshSettings.intensity
 
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)) // bind "this" to keep pointing the constructed scene
