@@ -6,11 +6,18 @@ const settings = {
   speed: 0.2,
   density: 1.5,
   strength: 0.2,
+  frequency: 3.0,
+  amplitude: 6.0,
 }
 const gui = new dat.GUI()
-gui.add(settings, "speed", 0.1, 1, 0.01)
-gui.add(settings, "density", 0, 10, 0.01)
-gui.add(settings, "strength", 0, 2, 0.01)
+
+const folder1 = gui.addFolder("Noise")
+const folder2 = gui.addFolder("Rotation")
+folder1.add(settings, "speed", 0.1, 1, 0.01)
+folder1.add(settings, "density", 0, 10, 0.01)
+folder1.add(settings, "strength", 0, 2, 0.01)
+folder2.add(settings, "frequency", 0, 10, 0.1)
+folder2.add(settings, "amplitude", 0, 10, 0.1)
 
 export const sphereElement = function () {
   const geometry = new THREE.IcosahedronBufferGeometry(1, 64)
@@ -22,6 +29,8 @@ export const sphereElement = function () {
       uSpeed: { value: settings.speed },
       uNoiseDensity: { value: settings.density },
       uNoiseStrength: { value: settings.strength },
+      uFrequency: { value: settings.frequency },
+      uAmplitude: { value: settings.amplitude },
     },
     wireframe: true,
   })
