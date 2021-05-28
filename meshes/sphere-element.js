@@ -25,7 +25,7 @@ folder3.add(settings, "intensity", 0, 10, 0.1)
 export const sphereElement = function () {
   const geometry = new THREE.IcosahedronBufferGeometry(1, 64)
   const material = new THREE.ShaderMaterial({
-    vertexShader: vertexShader(),
+    vertexShader,
     fragmentShader,
     uniforms: {
       uTime: { value: 0 },
