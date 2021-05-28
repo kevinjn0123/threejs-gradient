@@ -16,5 +16,5 @@ ${vertex}
 `
 
 export const fragmentShader = await fetch(
-  `/shaders/spheres/fragmentShader.frag`
+  `/shaders/spheres/fragment.frag`
 ).then((res) => res.text())
