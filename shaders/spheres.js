@@ -1,4 +1,4 @@
-const noise = `
+const noise = /* js */ `
   // GLSL textureless classic 3D noise "cnoise",
   // with an RSL-style periodic variant "pnoise".
   // Author:  Stefan Gustavson (stefan.gustavson@liu.se)
