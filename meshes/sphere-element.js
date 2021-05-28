@@ -1,5 +1,5 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
-import { vertexShader, fragmentShader } from "../shaders/spheres.js"
+import { vertexShader, fragmentShader } from "../shaders/spheres/index.js"
 import * as dat from "https://cdn.skypack.dev/dat.gui@0.7.7"
 
 const settings = {
@@ -26,7 +26,7 @@ export const sphereElement = function () {
   const geometry = new THREE.IcosahedronBufferGeometry(1, 64)
   const material = new THREE.ShaderMaterial({
     vertexShader: vertexShader(),
-    fragmentShader: fragmentShader(),
+    fragmentShader,
     uniforms: {
       uTime: { value: 0 },
       uSpeed: { value: settings.speed },
