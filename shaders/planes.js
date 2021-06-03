@@ -180,43 +180,30 @@ const noise = `
 export function vertexShader() {
   return `  
   varying vec3 vNormal;
-//   varying vec3 vUv;
-  
+  varying float displacement;
+
   uniform float uTime;
   uniform float uSpeed;
   uniform float uNoiseDensity;
   uniform float uNoiseStrength;
+  uniform float uFrequency;
 
-
-  
   ${noise}
   
   void main() {
-
-
-
     float t = uTime * uSpeed;
 
 
-    // float distortion = pnoise((normal + t) * uNoiseDensity, vec3(10.0)) * uNoiseStrength;
-
-    // vec3 pos = position + (normal * distortion);
-    
-    vNormal = normal;
-
-
-
-
-    //--------basic------------
+    //--------basic ------------
     // vec3 scale = vec3(1.0, 1.0, 1.0);
     // gl_Position = projectionMatrix * modelViewMatrix * vec4(pos * scale, 1.);
-
 
 
     //--------add displacement------------
 
     float displacement = 0.75 * cnoise(0.43 * position + t);
-    vec3 newPos = position + normal * displacement;
+    vec3 newPos = position + normal * displacement * uNoiseStrength;
+    vNormal = normal * displacement;
   
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1);
 
@@ -229,13 +216,11 @@ export function vertexShader() {
 export function fragmentShader() {
   return `
   varying vec3 vNormal;
-  
-  uniform float uTime;
-  
+  varying float displacement;
+
   void main() {
-    vec3 color = vec3(1.0);
-    
-    gl_FragColor = vec4(vNormal, 1.0);
+
+      gl_FragColor = vec4(vNormal.z * 0.9 , vNormal.z * 0.5 , vNormal.z, 1.0);
   }  
 `
 }

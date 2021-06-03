@@ -18,7 +18,7 @@ export class Scene {
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-    this.renderer.setClearColor("green", 1)
+    this.renderer.setClearColor("grey", 1)
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement)
 

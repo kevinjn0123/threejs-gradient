@@ -1,12 +1,47 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { vertexShader, fragmentShader } from "../shaders/planes.js"
+import * as dat from "https://cdn.skypack.dev/dat.gui@0.7.7"
+
 
 // TODO: add dat GUI or https://github.com/pmndrs/leva
+// const settings = {
+//   speed: 0.2,
+//   density: 1.5,
+//   strength: 0.5,
+// }
 const settings = {
-  speed: 0.2,
-  density: 1.5,
-  strength: 0.5,
-}
+	speed: 0.2,
+	density: 1.5,
+	strength: 1.8,
+	frequency: 3.0,
+	amplitude: 6.0,
+	intensity: 7.0,
+	color1r: 0.5,
+	color1g: 0.5,
+	color1b: 0.5,
+	color2r: 0.5,
+	color2g: 0.5,
+	color2b: 0.5,
+  }
+  const gui = new dat.GUI()
+  
+  const folder1 = gui.addFolder("Noise")
+  const folder2 = gui.addFolder("Rotation")
+  const folder3 = gui.addFolder("ColorInt")
+  const folder4 = gui.addFolder("Color")
+  folder1.add(settings, "speed", 0.1, 1, 0.01)
+  folder1.add(settings, "density", 0, 10, 0.01)
+  folder1.add(settings, "strength", 0, 2, 0.01)
+  folder2.add(settings, "frequency", 0, 10, 0.1)
+  folder2.add(settings, "amplitude", 0, 10, 0.1)
+  folder3.add(settings, "intensity", 0, 10, 0.1)
+  folder4.add(settings, "color1r", 0,1,0.01)
+  folder4.add(settings, "color1g", 0,1,0.01)
+  folder4.add(settings, "color1b", 0,1,0.01)
+  folder4.add(settings, "color2r", 0,1,0.01)
+  folder4.add(settings, "color2g", 0,1,0.01)
+  folder4.add(settings, "color2b", 0,1,0.01)
+
 
 export const planeElement = function () {
 //   const geometry = new THREE.PlaneGeometry(3,3,50,50)
@@ -83,6 +118,8 @@ const geometry = new THREE.BufferGeometry();
       uSpeed: { value: settings.speed },
       uNoiseDensity: { value: settings.density },
       uNoiseStrength: { value: settings.strength },
+	  uFrequency: { value: settings.frequency },
+	  uIntensity: { value: settings.intensity },
       resolution: { value: new THREE.Vector3() }
     },
     wireframe: false,
