@@ -17,7 +17,8 @@ void main() {
   vec3 phase = vec3(0.0, 0.1, 0.2);
 
   // Pass the distortion as input of cospalette
-  vec3 color = cosPalette(distort, brightness, contrast, oscilation, phase);
+  // vec3 color = cosPalette(distort, brightness, contrast, oscilation, phase);
+  vec3 color = vec3(distort, distort, 0.502);
 
   gl_FragColor = vec4(color, 1.0);
 }
