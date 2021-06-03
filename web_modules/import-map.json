@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "whatwg-fetch": "./whatwg-fetch.js"
+  }
+}
