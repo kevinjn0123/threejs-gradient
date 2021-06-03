@@ -19,7 +19,7 @@ const geometry = new THREE.BufferGeometry();
 				const normals = [];
 				const colors = [];
 
-				const size = 3;
+				const size = 5;
 				const segments = 50;
 
 				const halfSize = size / 2;
@@ -75,6 +75,7 @@ const geometry = new THREE.BufferGeometry();
 				geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 
   const material = new THREE.ShaderMaterial({
+	side: THREE.DoubleSide,
     vertexShader: vertexShader(),
     fragmentShader: fragmentShader(),
     uniforms: {
@@ -84,7 +85,7 @@ const geometry = new THREE.BufferGeometry();
       uNoiseStrength: { value: settings.strength },
       resolution: { value: new THREE.Vector3() }
     },
-    wireframe: true,
+    wireframe: false,
 
   })
   this.mesh = new THREE.Mesh(geometry, material)

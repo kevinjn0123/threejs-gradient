@@ -202,7 +202,7 @@ export function vertexShader() {
 
     // vec3 pos = position + (normal * distortion);
     
-    // vNormal = normal;
+    vNormal = normal;
 
 
 
