@@ -16,7 +16,7 @@ void main() {
 
   //--------add displacement------------
 
-  float displacement = 0.75 * cnoise(0.43 * position + t);
+  float displacement = 0.75 * cnoise(0.43 * position * uFrequency + t);
   vec3 newPos = position + normal * displacement * uNoiseStrength;
   vNormal = normal * displacement;
 

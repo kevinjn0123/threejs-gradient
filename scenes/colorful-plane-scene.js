@@ -53,8 +53,17 @@ export class Scene {
     this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
     this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
     this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
-    this.mesh.material.uniforms.uNoiseStrength.value =
-      this.meshSettings.strength
+    this.mesh.material.uniforms.uNoiseStrength.value = this.meshSettings.strength
+    this.mesh.material.uniforms.uFrequency.value = this.meshSettings.frequency
+    this.mesh.material.uniforms.uC1r.value = this.meshSettings.color1r
+    this.mesh.material.uniforms.uC1g.value = this.meshSettings.color1g
+    this.mesh.material.uniforms.uC1b.value = this.meshSettings.color1b
+    this.mesh.material.uniforms.uC2r.value = this.meshSettings.color2r
+    this.mesh.material.uniforms.uC2g.value = this.meshSettings.color2g
+    this.mesh.material.uniforms.uC2b.value = this.meshSettings.color2b
+
+
+
 
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)) // bind "this" to keep pointing the constructed scene
