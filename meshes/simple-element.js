@@ -21,11 +21,11 @@ export const planeElement = function () {
     uniforms: {
       uTime: { value: 0 },
       uSpeed: { value: settings.speed },
-      uNoiseDensity: { value: settings.density },
+      // uNoiseDensity: { value: settings.density },
       uNoiseStrength: { value: settings.strength },
-      uFrequency: { value: settings.frequency },
-      uIntensity: { value: settings.intensity },
-      resolution: { value: new THREE.Vector3() },
+      // uFrequency: { value: settings.frequency },
+      // uIntensity: { value: settings.intensity },
+      // resolution: { value: new THREE.Vector3() },
     },
     wireframe: true,
   })
