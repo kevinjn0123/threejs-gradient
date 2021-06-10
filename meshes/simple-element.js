@@ -6,10 +6,15 @@ import { vertexShader, fragmentShader } from "../shaders/simple/index.js"
 const settings = {
   speed: 0.2,
   density: 1.5,
-  strength: 1.8,
-  frequency: 3.0,
-  intensity: 7.0,
+  // strength: 1.8,
+  // frequency: 3.0,
+  // intensity: 7.0,
 }
+
+const gui = new dat.GUI()
+
+const folder1 = gui.addFolder("Test")
+folder1.add(settings, "speed", 0.1, 1, 0.01)
 
 export const planeElement = function () {
   this.settings = settings
@@ -22,7 +27,7 @@ export const planeElement = function () {
       uTime: { value: 0 },
       uSpeed: { value: settings.speed },
       // uNoiseDensity: { value: settings.density },
-      uNoiseStrength: { value: settings.strength },
+      // uNoiseStrength: { value: settings.strength },
       // uFrequency: { value: settings.frequency },
       // uIntensity: { value: settings.intensity },
       // resolution: { value: new THREE.Vector3() },

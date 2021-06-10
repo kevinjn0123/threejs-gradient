@@ -1,6 +1,6 @@
 import fetch from "../../web_modules/whatwg-fetch.js"
 
-const cnoise = await fetch(`/shaders/simple/cnoise.glsl`).then((res) =>
+const noises = await fetch(`/shaders/simple/noises.glsl`).then((res) =>
   res.text()
 )
 const vertex = await fetch(`/shaders/simple/vertex.glsl`).then((res) =>
@@ -11,7 +11,7 @@ const vertex = await fetch(`/shaders/simple/vertex.glsl`).then((res) =>
 //   res.text()
 // )
 export const vertexShader = `
-${cnoise}
+${noises}
 ${vertex}
 `
 
