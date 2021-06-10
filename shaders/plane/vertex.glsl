@@ -1,6 +1,7 @@
 varying vec3 vNormal;
 varying float displacement;
 
+
 uniform float uTime;
 uniform float uSpeed;
 uniform float uNoiseDensity;

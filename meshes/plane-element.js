@@ -16,12 +16,12 @@ const settings = {
   frequency: 3.0,
   amplitude: 6.0,
   intensity: 7.0,
-  color1r: 0.5,
-  color1g: 0.5,
-  color1b: 0.5,
-  color2r: 0.5,
+  color1r: 0.8,
+  color1g: 0.3,
+  color1b: 0.43,
+  color2r: 0.1,
   color2g: 0.5,
-  color2b: 0.5,
+  color2b: 1.0,
 }
 const gui = new dat.GUI()
 
@@ -114,7 +114,7 @@ export const planeElement = function () {
       uNoiseStrength: { value: settings.strength },
       uFrequency: { value: settings.frequency },
       uIntensity: { value: settings.intensity },
-      uC1r:{value:settings.color1r}, 
+      uC1r: {value:settings.color1r}, 
       uC1g:{value:settings.color1g}, 
       uC1b:{value:settings.color1b}, 
       uC2r:{value:settings.color2r}, 
