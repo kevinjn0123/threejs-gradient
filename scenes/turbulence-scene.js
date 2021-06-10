@@ -60,7 +60,7 @@ export class Scene {
   animationLoop() {
     // ------------------------- ANIMATE PLANE -------------------------------
     this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
-    // this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
+    this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
     // this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
     // this.mesh.material.uniforms.uNoiseStrength.value =
     //   this.meshSettings.strength

@@ -5,7 +5,7 @@ import { vertexShader, fragmentShader } from "../shaders/turbulence/index.js"
 
 const settings = {
   speed: 0.2,
-  density: 1.5,
+  // density: 1.5,
   // strength: 1.8,
   // frequency: 3.0,
   // intensity: 7.0,
@@ -14,11 +14,12 @@ const settings = {
 const gui = new dat.GUI()
 
 const folder1 = gui.addFolder("Test")
-folder1.add(settings, "speed", 0.1, 1, 0.01)
+folder1.add(settings, "speed", 0, 10, 0.01)
+console.log("settings", settings)
+
+folder1.open()
 
 export const planeElement = function () {
-  this.settings = settings
-
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     vertexShader,
@@ -36,4 +37,6 @@ export const planeElement = function () {
   })
 
   this.mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(20, 4), material)
+
+  this.settings = settings
 }
