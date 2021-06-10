@@ -12,6 +12,8 @@ const settings = {
 }
 
 export const planeElement = function () {
+  this.settings = settings
+
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     vertexShader,
@@ -34,7 +36,7 @@ export const planeElement = function () {
   // this.mesh = new THREE.Mesh(geometry, material)
 
   // [Plane Test]
-  const geometry = new THREE.PlaneGeometry(1, 1)
+  const geometry = new THREE.PlaneGeometry(1, 1, 2, 2)
   // const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
   this.mesh = new THREE.Mesh(geometry, material)
 }
