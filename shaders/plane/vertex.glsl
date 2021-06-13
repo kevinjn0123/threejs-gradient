@@ -1,6 +1,6 @@
 varying vec3 vNormal;
 varying float displacement;
-
+varying vec3 vPos;
 
 uniform float uTime;
 uniform float uSpeed;
@@ -20,6 +20,7 @@ void main() {
   float displacement = 0.75 * cnoise(0.43 * position * uFrequency + t);
   vec3 newPos = position + normal * displacement * uNoiseStrength;
   vNormal = normal * displacement;
+  vPos = position;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1);
 }

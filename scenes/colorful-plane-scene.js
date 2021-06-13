@@ -15,6 +15,7 @@ export class Scene {
     )
     this.camera.position.set(0, 0, 4)
 
+
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -24,11 +25,13 @@ export class Scene {
 
     this.clock = new THREE.Clock()
 
+    
     this.init()
   }
 
   init() {
     this.addCanvas()
+    this.addLights()
     this.addMeshElements()
     this.animationLoop()
   }
@@ -45,8 +48,20 @@ export class Scene {
 
     this.scene.add(this.mesh)
     this.mesh.rotation.x = Math.PI / 2
-    
   }
+
+  addLights(){
+    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 2.0 );
+    this.light = hemiLight
+
+				this.light.color.setHSL( 0.6, 1, 0.6 );
+				this.light.groundColor.setHSL( 0.095, 1, 0.75 );
+				this.light.position.set( 0, 10, 0 );
+        this.scene.add(this.light);    
+	
+
+  }
+
 
   animationLoop() {
     // ------------------------- ANIMATE PLANE -------------------------------
@@ -61,6 +76,9 @@ export class Scene {
     this.mesh.material.uniforms.uC2r.value = this.meshSettings.color2r
     this.mesh.material.uniforms.uC2g.value = this.meshSettings.color2g
     this.mesh.material.uniforms.uC2b.value = this.meshSettings.color2b
+    this.mesh.material.uniforms.uC3r.value = this.meshSettings.color3r
+    this.mesh.material.uniforms.uC3g.value = this.meshSettings.color3g
+    this.mesh.material.uniforms.uC3b.value = this.meshSettings.color3b
 
 
 
