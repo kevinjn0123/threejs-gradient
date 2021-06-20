@@ -1,7 +1,11 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 // import { planeElement } from "../meshes/turbulence-element.js"
-import { planeElement, coneElement } from "../meshes/simple-element-2.js"
+import {
+  planeElement,
+  coneElement,
+  cylinderElement,
+} from "../meshes/simple-element-2.js"
 
 export class Scene {
   constructor() {
@@ -49,7 +53,7 @@ export class Scene {
   }
 
   addMeshElements() {
-    const plane = new coneElement()
+    const plane = new cylinderElement()
     this.mesh = plane.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = plane.settings
