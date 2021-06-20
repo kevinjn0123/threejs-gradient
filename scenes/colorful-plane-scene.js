@@ -50,16 +50,19 @@ export class Scene {
     this.mesh.rotation.x = Math.PI / 2
   }
 
-  addLights(){
-    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 2.0 );
-    this.light = hemiLight
 
-				this.light.color.setHSL( 0.6, 1, 0.6 );
-				this.light.groundColor.setHSL( 0.095, 1, 0.75 );
-				this.light.position.set( 0, 10, 0 );
-        this.scene.add(this.light);    
-	
-
+  addLights() {
+    //_ambientLights = new THREE.AmbientLight(0xFFFFFF, 1);
+    const _ambientLights = new THREE.HemisphereLight(0xffffff, 0x000000, 1.4)
+    const _lights = new THREE.PointLight(0xffffff, 1.0)
+    _lights.position.set(20, 20, 20)
+    this.scene.add(_lights)
+    this.scene.add(_ambientLights)
+    var dirLight = new THREE.DirectionalLight(0xffffff, 0.45);
+    dirLight.color.setHSL(0.1, 1.0, 0.8);
+    dirLight.position.set(-1, 1.75, 1);
+    dirLight.position.multiplyScalar(30);
+    this.scene.add(dirLight);
   }
 
 

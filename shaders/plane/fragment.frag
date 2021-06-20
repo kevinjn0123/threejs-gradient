@@ -17,13 +17,12 @@ varying vec3 color2;
 varying vec3 color3;
 
 
-
-
 void main() {
 
 vec3 color1 = vec3(uC1r, uC1g, uC1b);
 vec3 color2 = vec3(uC2r, uC2g, uC2b);
 vec3 color3 = vec3(uC3r, uC3g, uC3b);
+
 
 
   // gl_FragColor = vec4(0.5*(vNormal + vec3(uC1r, uC1g, uC1b)), 1.0);
