@@ -18,10 +18,9 @@ const folder1 = gui.addFolder("Test")
 folder1.add(settings, "speed", 0.1, 1, 0.01)
 
 export const planeElement = function () {
-  // const material = new THREE.MeshBasicMaterial({ color: 0xffff00 })
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
-    // vertexShader,
+    vertexShader,
     // fragmentShader,
     uniforms: {
       uTime: { value: 0 },
@@ -36,7 +35,28 @@ export const planeElement = function () {
   })
 
   const geometry = new THREE.BoxGeometry(1, 1, 1)
+  this.mesh = new THREE.Mesh(geometry, material)
 
+  this.settings = settings
+}
+
+export const coneElement = function () {
+  const material = new THREE.ShaderMaterial({
+    side: THREE.DoubleSide,
+    vertexShader,
+    // fragmentShader,
+    uniforms: {
+      uTime: { value: 0 },
+      uSpeed: { value: settings.speed },
+      // uNoiseDensity: { value: settings.density },
+      // uNoiseStrength: { value: settings.strength },
+      // uFrequency: { value: settings.frequency },
+      // uIntensity: { value: settings.intensity },
+      // resolution: { value: new THREE.Vector3() },
+    },
+    wireframe: true,
+  })
+  const geometry = new THREE.ConeGeometry(5, 20, 32)
   this.mesh = new THREE.Mesh(geometry, material)
 
   this.settings = settings

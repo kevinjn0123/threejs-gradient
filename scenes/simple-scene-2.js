@@ -1,7 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
 // import { planeElement } from "../meshes/turbulence-element.js"
-import { planeElement } from "../meshes/simple-element-2.js"
+import { planeElement, coneElement } from "../meshes/simple-element-2.js"
 
 export class Scene {
   constructor() {
@@ -12,7 +12,7 @@ export class Scene {
       0.1,
       1000
     )
-    this.camera.position.set(-5, -2, -2)
+    this.camera.position.set(-40, -2, -2)
     // this.camera.lookAt(new THREE.Vector3(100, 1000, 100))
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -49,7 +49,7 @@ export class Scene {
   }
 
   addMeshElements() {
-    const plane = new planeElement()
+    const plane = new coneElement()
     this.mesh = plane.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = plane.settings
