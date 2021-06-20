@@ -1,8 +1,8 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
-// import { planeElement } from "../meshes/turbulence-element.js"
+// import { boxElement } from "../meshes/turbulence-element.js"
 import {
-  planeElement,
+  boxElement,
   coneElement,
   cylinderElement,
   textElement,
@@ -60,7 +60,8 @@ export class Scene {
   }
 
   addMeshElements() {
-    const element = new textElement(this.font)
+    // const element = new textElement(this.font)
+    const element = new boxElement()
     this.mesh = element.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = element.settings

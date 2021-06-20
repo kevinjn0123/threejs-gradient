@@ -17,7 +17,7 @@ const gui = new dat.GUI()
 const folder1 = gui.addFolder("Test")
 folder1.add(settings, "speed", 0.1, 1, 0.01)
 
-export const planeElement = function () {
+export const boxElement = function () {
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     vertexShader,
