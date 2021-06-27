@@ -52,6 +52,9 @@ export const bubbleElement = function () {
       time: {
         type: "f",
         value: 0.0
+      }, 
+      shininess:{
+        value:34.0
       }
     }
   ]);
@@ -176,8 +179,8 @@ export const bubbleElement = function () {
     THREE.ShaderChunk["aomap_fragment"],
     "vec3 outgoingLight = reflectedLight.directDiffuse +reflectedLight.indirectDiffuse + reflectedLight.directSpecular + reflectedLight.indirectSpecular + totalEmissiveRadiance;",
     THREE.ShaderChunk["envmap_fragment"],
-    // "gl_FragColor = vec4( outgoingLight, diffuseColor.a );",
-    "gl_FragColor = diffuseColor;",
+    "gl_FragColor = vec4( outgoingLight, diffuseColor.a );",
+    // "gl_FragColor = diffuseColor;",
     THREE.ShaderChunk["premultiplied_alpha_fragment"],
     THREE.ShaderChunk["tonemapping_fragment"],
     THREE.ShaderChunk["encodings_fragment"],
@@ -190,31 +193,15 @@ export const bubbleElement = function () {
     vertexShader: vertex,
     fragmentShader: fragment,
     lights: true, 
-    wireframe:true
+    wireframe:false
   });
 
-
+  
+  // material.uniforms.shininess.value = 34.0;
  
 
   this.mesh = new THREE.Mesh(geometry, material);
-//   scene.add(sphere);
 
-
-//   const material = new THREE.ShaderMaterial({
-//     vertexShader,
-//     fragmentShader,
-//     uniforms: {
-//       uTime: { value: 0 },
-//       uSpeed: { value: settings.speed },
-//       uNoiseDensity: { value: settings.density },
-//       uNoiseStrength: { value: settings.strength },
-//       uFrequency: { value: settings.frequency },
-//       uAmplitude: { value: settings.amplitude },
-//       uIntensity: { value: settings.intensity },
-//     },
-//     // wireframe: true,
-//   })
-//   this.mesh = new THREE.Mesh(geometry, material)
 
   this.settings = settings
 }

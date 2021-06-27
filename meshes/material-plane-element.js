@@ -1,7 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 // import { vertexShader, fragmentShader } from "../shaders/planes.js"
 import * as dat from "https://cdn.skypack.dev/dat.gui@0.7.7"
-import { vertexShader, fragmentShader } from "../shaders/plane/index.js"
+import { vertexShader, fragmentShader, cnoiseVal } from "../shaders/plane/index.js"
 
 // TODO: add dat GUI or https://github.com/pmndrs/leva
 
@@ -44,7 +44,7 @@ folder4.add(settings, "color3r", 0, 1, 0.01)
 folder4.add(settings, "color3g", 0, 1, 0.01)
 folder4.add(settings, "color3b", 0, 1, 0.01)
 
-export const planeElement = function () {
+export const materialPlaneElement = function () {
 
   const geometry = new THREE.BufferGeometry()
 
@@ -105,31 +105,10 @@ export const planeElement = function () {
   geometry.setAttribute("color", new THREE.Float32BufferAttribute(colors, 3))
 
 
-
-
-
-var uniforms = THREE.UniformsUtils.merge([
-  THREE.UniformsLib["ambient"],
-  THREE.UniformsLib["lights"],
-  THREE.UniformsUtils.clone(THREE.ShaderLib.phong.uniforms),
-  {
-    diffuse: {
-      type: "c",
-      value: new THREE.Color(0xff00ff)
-    },
-    dirSpecularWeight: {
-      type: "v3",
-      value: new THREE.Vector3(1, 9, 1)
-    },
-    time: {
-      type: "f",
-      value: 0.0
-    }
-  }, {
-        emissive: { value: new THREE.Color( 0x000000 ) },
+var uniforms = {
         roughness: { value: 0.5 },
-        metalness: { value: 0 },
-        envMapIntensity: { value: 1 },
+        metalness: { value: 0.5 },
+        emissive:{ value: 0.0 },
         uTime: { value: 0 },
         uSpeed: { value: settings.speed },
         uNoiseDensity: { value: settings.density },
@@ -146,26 +125,43 @@ var uniforms = THREE.UniformsUtils.merge([
         uC3g:{value:settings.color3g}, 
         uC3b:{value:settings.color3b}, 
         resolution: { value: new THREE.Vector3() },
-        shininess:{value:0.43}, 
         ambient: { value: new THREE.Color( 0x000000 ) },
         specular: { value: new THREE.Color( 0x000000 ) },
-        opacity:{value:0.5}
+        opacity: { value:0.5 }
+}
 
-      }
-]);
-
-
-
-  const material = new THREE.ShaderMaterial({
+  
+    let material = new THREE.MeshStandardMaterial({
+    // roughness: 0.25,
+    // metalness: 0.5,
     side: THREE.DoubleSide,
-    vertexShader,
-    fragmentShader,
-    uniforms: uniforms,
-    
-    wireframe: false,
-    lights: true,
-  })
-  this.mesh = new THREE.Mesh(geometry, material)
+    // wireframe:true,
+    onBeforeCompile: shader => {
+    shader.uniforms.uTime = uniforms.uTime;
+    shader.uniforms.uSpeed = uniforms.uSpeed;
+    shader.uniforms.uNoiseDensity = uniforms.uNoiseDensity;
+    shader.uniforms.uNoiseStrength = uniforms.uNoiseStrength;
+    shader.uniforms.uIntensity = uniforms.uIntensity;
+    shader.uniforms.uFrequency = uniforms.uFrequency;
+    shader.uniforms.uC1r = uniforms.uC1r;
+    shader.uniforms.uC1g = uniforms.uC1g;
+    shader.uniforms.uC1b = uniforms.uC1b;
+    shader.uniforms.uC2r = uniforms.uC2r;
+    shader.uniforms.uC2g = uniforms.uC2g;
+    shader.uniforms.uC2b = uniforms.uC2b;
+    shader.uniforms.uC3r = uniforms.uC3r;
+    shader.uniforms.uC3g = uniforms.uC3g;
+    shader.uniforms.uC3b = uniforms.uC3b;
+    //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
+    shader.vertexShader = vertexShader
+    shader.fragmentShader = fragmentShader
+    console.log(shader.fragmentShader)
+    console.log(shader.vertexShader)
+
+  }
+});
+
+this.mesh = new THREE.Mesh(geometry, material);
 
   this.settings = settings
 }

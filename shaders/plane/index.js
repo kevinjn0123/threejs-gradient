@@ -14,3 +14,5 @@ ${vertex}
 export const fragmentShader = await fetch(`/shaders/plane/fragment.frag`).then(
   (res) => res.text()
 )
+
+export const cnoiseVal = `${cnoise}` 
