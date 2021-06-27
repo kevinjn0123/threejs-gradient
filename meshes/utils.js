@@ -11,6 +11,7 @@ export function CustomMat(texturePath, shader) {
     fragmentShader: shader.fragmentShader,
     vertexShader: shader.vertexShader,
     uniforms: uniforms,
+    // wireframe: true,
   }
   return new THREE.ShaderMaterial(parameters)
 }

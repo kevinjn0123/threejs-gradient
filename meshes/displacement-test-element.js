@@ -30,6 +30,7 @@ export const sphereElement = function () {
   })
 
   const geometry = new THREE.SphereGeometry(1, 80, 80)
+  // const geometry = new THREE.PlaneGeometry(1, 1, 3, 3)
   this.mesh = new THREE.Mesh(geometry, material)
 }
 
