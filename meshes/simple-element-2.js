@@ -26,7 +26,7 @@ export const planeElement = function () {
   })
 
   // [Plane Test]
-  const geometry = new THREE.PlaneGeometry(1, 1, 2, 2)
+  const geometry = new THREE.PlaneGeometry(1, 1, 3, 3)
   this.mesh = new THREE.Mesh(geometry, material)
 }
 
