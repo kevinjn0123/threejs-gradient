@@ -1,13 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
-// import { boxElement } from "../meshes/turbulence-element.js"
-import {
-  boxElement,
-  coneElement,
-  cylinderElement,
-  planeElement,
-  textElement,
-} from "../meshes/simple-element-2.js"
+import { planeElement } from "../meshes/simple-element-2.js"
 
 export class Scene {
   constructor() {
@@ -18,7 +11,7 @@ export class Scene {
       0.1,
       1000
     )
-    this.camera.position.set(-40, -2, -2)
+    this.camera.position.set(-3, -2, -2)
     // this.camera.lookAt(new THREE.Vector3(100, 1000, 100))
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
