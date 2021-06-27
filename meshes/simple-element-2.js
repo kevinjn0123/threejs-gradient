@@ -53,6 +53,24 @@ export const boxElement = function () {
   this.settings = settings
 }
 
+export const sphereElement = function () {
+  this.settings = settings
+
+  const material = new THREE.ShaderMaterial({
+    side: THREE.DoubleSide,
+    vertexShader,
+    fragmentShader,
+    uniforms: {
+      uTime: { value: 0 },
+      uSpeed: { value: settings.speed },
+    },
+    wireframe: true,
+  })
+
+  const geometry = new THREE.SphereGeometry(1, 80, 80)
+  this.mesh = new THREE.Mesh(geometry, material)
+}
+
 export const coneElement = function () {
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
