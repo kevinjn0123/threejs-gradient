@@ -7,9 +7,6 @@ const vertex = await fetch(`/shaders/simple/vertex.glsl`).then((res) =>
   res.text()
 )
 
-// const pnoise = await fetch(`/shaders/spheres/pnoise.glsl`).then((res) =>
-//   res.text()
-// )
 export const vertexShader = `
 ${noises}
 ${vertex}
