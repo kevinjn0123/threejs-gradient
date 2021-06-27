@@ -18,7 +18,7 @@ folder1.add(settings, "speed", 0.1, 1, 0.01)
 export const sphereElement = function () {
   this.settings = settings
 
-  const material = CustomMat("textures/texture.jpg", {
+  const material = CustomMat("textures/texture-3.jpg", {
     vertexShader,
     fragmentShader,
     uniforms: {
