@@ -18,17 +18,6 @@ folder1.add(settings, "speed", 0.1, 1, 0.01)
 export const sphereElement = function () {
   this.settings = settings
 
-  // const material = new THREE.ShaderMaterial({
-  //   side: THREE.DoubleSide,
-  //   vertexShader,
-  //   fragmentShader,
-  //   uniforms: {
-  //     uTime: { value: 0 },
-  //     uSpeed: { value: settings.speed },
-  //   },
-  //   wireframe: true,
-  // })
-
   const material = CustomMat("textures/texture.jpg", {
     vertexShader,
     fragmentShader,
