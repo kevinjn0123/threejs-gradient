@@ -17,7 +17,7 @@ export const planeElement = function () {
   const material = new THREE.ShaderMaterial({
     side: THREE.DoubleSide,
     vertexShader,
-    // fragmentShader,
+    fragmentShader,
     uniforms: {
       uTime: { value: 0 },
       uSpeed: { value: settings.speed },
