@@ -4,6 +4,7 @@ import {
   vertexShader,
   fragmentShader,
 } from "../shaders/displacement-test/index.js"
+import { CustomMat } from "./utils.js"
 
 const settings = {
   speed: 0.2,
@@ -17,15 +18,26 @@ folder1.add(settings, "speed", 0.1, 1, 0.01)
 export const sphereElement = function () {
   this.settings = settings
 
-  const material = new THREE.ShaderMaterial({
-    side: THREE.DoubleSide,
-    // vertexShader,
-    // fragmentShader,
+  // const material = new THREE.ShaderMaterial({
+  //   side: THREE.DoubleSide,
+  //   vertexShader,
+  //   fragmentShader,
+  //   uniforms: {
+  //     uTime: { value: 0 },
+  //     uSpeed: { value: settings.speed },
+  //   },
+  //   wireframe: true,
+  // })
+
+  const material = CustomMat("textures/texture.jpg", {
+    vertexShader,
+    fragmentShader,
     uniforms: {
-      uTime: { value: 0 },
-      uSpeed: { value: settings.speed },
+      // uTime: { value: 0 },
+      // uSpeed: { value: settings.speed },
+      texture1: { type: "t", value: null },
+      scale: { type: "f", value: 1.0 },
     },
-    wireframe: true,
   })
 
   const geometry = new THREE.SphereGeometry(1, 80, 80)

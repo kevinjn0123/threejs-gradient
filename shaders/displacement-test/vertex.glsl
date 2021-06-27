@@ -3,6 +3,7 @@ varying float noise;
 varying vec3 fNormal;
 uniform sampler2D texture1;
 uniform float scale;
+
 void main() {
   vUv = uv;
   fNormal = normal;
