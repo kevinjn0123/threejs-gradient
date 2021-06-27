@@ -1,8 +1,7 @@
-// varying vec2 vUv;
-// varying float noise;
-// varying vec3 fNormal;
-// void main(void) { gl_FragColor = vec4(fNormal * noise, 1.); }
+varying float noise;
+varying vec3 fNormal;
+void main(void) { gl_FragColor = vec4(fNormal * noise, 1.); }
 
 // ------------------------- SIMPLE SHADER -------------------------------
-varying vec3 fNormal;
-void main(void) { gl_FragColor = vec4(fNormal, 1.); }
+// varying vec3 fNormal;
+// void main(void) { gl_FragColor = vec4(fNormal, 1.); }
