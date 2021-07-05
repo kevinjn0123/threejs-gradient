@@ -18,11 +18,11 @@ folder1.add(settings, "speed", 0.1, 1, 0.01)
 export const sphereElement = function () {
   this.settings = settings
 
-  const material = CustomMat("textures/texture-3.jpg", {
+  const material = CustomMat("textures/texture-2.jpg", {
     vertexShader,
     fragmentShader,
     uniforms: {
-      // uTime: { value: 0 },
+      uTime: { value: 0 },
       // uSpeed: { value: settings.speed },
       texture1: { type: "t", value: null },
       scale: { type: "f", value: 1.0 },
