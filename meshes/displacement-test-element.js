@@ -8,7 +8,7 @@ import { CustomMat } from "./utils.js"
 
 const settings = {
   speed: 0.2,
-  strength: 0.2,
+  strength: 2.0,
 }
 
 const gui = new dat.GUI()
@@ -20,7 +20,7 @@ folder1.add(settings, "strength", 0, 20, 0.01)
 export const sphereElement = function () {
   this.settings = settings
 
-  const material = CustomMat("textures/texture-2.jpg", {
+  const material = CustomMat("textures/texture-1.jpg", {
     vertexShader,
     fragmentShader,
     uniforms: {
