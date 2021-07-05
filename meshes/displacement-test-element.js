@@ -33,26 +33,24 @@ export const sphereElement = function () {
   })
 
   const geometry = new THREE.SphereGeometry(1, 80, 80)
-  // const geometry = new THREE.PlaneGeometry(1, 1, 3, 3)
   this.mesh = new THREE.Mesh(geometry, material)
 }
 
 export const planeElement = function () {
   this.settings = settings
 
-  const material = new THREE.ShaderMaterial({
-    side: THREE.DoubleSide,
+  const material = CustomMat("textures/texture-2.jpg", {
     vertexShader,
     fragmentShader,
     uniforms: {
       uTime: { value: 0 },
-      uSpeed: { value: settings.speed },
+      uNoiseStrength: { value: settings.strength },
+      texture1: { type: "t", value: null },
+      scale: { type: "f", value: 1.0 },
     },
-    wireframe: true,
   })
 
-  // [Plane Test]
-  const geometry = new THREE.PlaneGeometry(100, 100, 300, 300)
+  const geometry = new THREE.PlaneGeometry(20, 20, 100, 100)
   this.mesh = new THREE.Mesh(geometry, material)
 }
 

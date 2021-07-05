@@ -1,6 +1,9 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
-import { sphereElement } from "../meshes/displacement-test-element.js"
+import {
+  sphereElement,
+  planeElement,
+} from "../meshes/displacement-test-element.js"
 
 export class Scene {
   constructor() {
@@ -55,8 +58,8 @@ export class Scene {
 
   addMeshElements() {
     // const element = new textElement(this.font)
-    const element = new sphereElement()
-    // const element = new planeElement()
+    // const element = new sphereElement()
+    const element = new planeElement()
     this.mesh = element.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = element.settings
