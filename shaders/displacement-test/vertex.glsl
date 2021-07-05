@@ -20,8 +20,8 @@ void main() {
   // float normalDisplacement = cnoise(position + uTime);
 
   float normalDisplacement =
-      pnoise(position + uTime, vec3(0.0)) * uNoiseStrength;
-  vec3 newPosition = position + normal * scale * texNoise * normalDisplacement;
+      pnoise(position + uTime, vec3(1.0)) * uNoiseStrength;
+  vec3 newPosition = position + normal * scale * normalDisplacement;
 
   // float displacement = 0.75 * cnoise(0.43 * position + uTime);
   // vec3 newPosition = position + normal * displacement * uNoiseStrength;
