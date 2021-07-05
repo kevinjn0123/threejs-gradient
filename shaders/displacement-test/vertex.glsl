@@ -5,6 +5,7 @@ uniform sampler2D texture1;
 uniform float scale;
 
 uniform float uTime;
+uniform float uNoiseStrength;
 
 void main() {
   vUv = uv;
@@ -18,7 +19,8 @@ void main() {
   // float displacement = pnoise((normal + uTime), vec3(10.0));
 
   // float normalDisplacement = cnoise(position + uTime);
-  float normalDisplacement = pnoise(position + uTime, vec3(1.0));
+  float normalDisplacement =
+      pnoise(position + uTime, vec3(1.0)) * uNoiseStrength;
 
   vec3 newPosition = position + normal * scale * texNoise * normalDisplacement;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);

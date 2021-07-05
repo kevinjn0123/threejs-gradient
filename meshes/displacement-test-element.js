@@ -8,12 +8,14 @@ import { CustomMat } from "./utils.js"
 
 const settings = {
   speed: 0.2,
+  strength: 0.2,
 }
 
 const gui = new dat.GUI()
 
-const folder1 = gui.addFolder("Test")
+const folder1 = gui.addFolder("Noise")
 folder1.add(settings, "speed", 0.1, 1, 0.01)
+folder1.add(settings, "strength", 0, 20, 0.01)
 
 export const sphereElement = function () {
   this.settings = settings
@@ -23,6 +25,7 @@ export const sphereElement = function () {
     fragmentShader,
     uniforms: {
       uTime: { value: 0 },
+      uNoiseStrength: { value: settings.strength },
       // uSpeed: { value: settings.speed },
       texture1: { type: "t", value: null },
       scale: { type: "f", value: 1.0 },
