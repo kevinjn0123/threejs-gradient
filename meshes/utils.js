@@ -8,6 +8,7 @@ export function CustomMat(texturePath, shader) {
   uniforms["texture1"].value = texture
 
   var parameters = {
+    side: THREE.DoubleSide,
     fragmentShader: shader.fragmentShader,
     vertexShader: shader.vertexShader,
     uniforms: uniforms,
