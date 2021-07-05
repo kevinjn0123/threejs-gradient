@@ -106,8 +106,8 @@ export const materialPlaneElement = function () {
 
 
 var uniforms = {
-        roughness: { value: 0.5 },
-        metalness: { value: 0.5 },
+        roughness: { value: 0.0},
+        metalness: { value: 1.0 },
         emissive:{ value: 0.0 },
         uTime: { value: 0 },
         uSpeed: { value: settings.speed },
@@ -127,16 +127,23 @@ var uniforms = {
         resolution: { value: new THREE.Vector3() },
         ambient: { value: new THREE.Color( 0x000000 ) },
         specular: { value: new THREE.Color( 0x000000 ) },
-        opacity: { value:0.5 }
+        opacity: { value: 0.2}
 }
 
   
     let material = new THREE.MeshStandardMaterial({
-    // roughness: 0.25,
-    // metalness: 0.5,
+    roughness: 0.1,
+    metalness: 0.5,
     side: THREE.DoubleSide,
+  
     // wireframe:true,
     onBeforeCompile: shader => {
+      console.log(shader.fragmentShader)
+      console.log(shader.vertexShader)
+    // shader.uniforms.roughness = uniforms.roughness
+    // shader.uniforms.metalness = uniforms.metalness
+    // shader.uniforms.emissive = uniforms.emissive
+
     shader.uniforms.uTime = uniforms.uTime;
     shader.uniforms.uSpeed = uniforms.uSpeed;
     shader.uniforms.uNoiseDensity = uniforms.uNoiseDensity;
@@ -155,8 +162,7 @@ var uniforms = {
     //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
     shader.vertexShader = vertexShader
     shader.fragmentShader = fragmentShader
-    console.log(shader.fragmentShader)
-    console.log(shader.vertexShader)
+
 
   }
 });

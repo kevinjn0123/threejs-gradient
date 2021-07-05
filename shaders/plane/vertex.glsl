@@ -59,7 +59,7 @@ void main() {
     float displacement = 0.75 * cnoise(0.43 * position * uFrequency + t);
     vec3 newPos = position + normal * displacement * uNoiseStrength;
     vNormal = normal * displacement;
-    vPos = position;
+    vPos = position ;
 
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
@@ -67,7 +67,7 @@ void main() {
 	#include <project_vertex>
 	#include <logdepthbuf_vertex>
 	#include <clipping_planes_vertex>
-	vViewPosition = - mvPosition.xyz;
+	vViewPosition = - mvPosition.xyz ;
 	#include <worldpos_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
