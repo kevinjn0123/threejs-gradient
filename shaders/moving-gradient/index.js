@@ -17,23 +17,6 @@ ${vertex}
 // ).then((res) => res.text())
 
 const GradientShader = {
-  vertexShader: [
-    "varying vec2 vUv;",
-
-    "void main() {",
-    "  vUv = uv;",
-    "  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);",
-    "}",
-
-    // "varying vec3 vUv;",
-
-    // "void main() {",
-    // "  vUv = position;",
-    // "  vec4 modelViewPosition = modelViewMatrix * vec4(position, 1.0);",
-    // "  gl_Position = projectionMatrix * modelViewPosition; ",
-    // "}"
-  ].join("\n"),
-
   fragmentShader: [
     // "uniform vec3 colorA;",
     // "uniform vec3 colorB; ",
@@ -105,10 +88,16 @@ const GradientShader = {
     "  return pow(c, vec3(1.0 / gamma));",
     "}",
 
+    "vec3 cosPalette(float t, vec3 a, vec3 b, vec3 c, vec3 d) {",
+    "  return a + b * cos(6.28318 * (c * t + d));",
+    "}",
+
     "void main() {",
     // "  vec2 position = vUv.xy / vec2(0.1).xy - vec2(4.5).xy;",
     "  vec3 color = vec3(0, 0, 0);",
     "  float sumDistance = 0.0;",
+    "  float distort = fNormal.z;",
+
     "  for(int i = 0; i < " + 4 + "; i++) {",
     "    float currentDistance = pow(vertices[i].y - vUv.y, 2.0) + pow(vertices[i].x - vUv.x, 2.0);",
     "    sumDistance += currentDistance;",
@@ -119,6 +108,10 @@ const GradientShader = {
     "    float inverseDistance = 1.0 / (currentDistance / sumDistance);",
     "    t += inverseDistance;",
     "  }",
+    "vec3 brightness = vec3(0.5, 0.5, 0.5);",
+    "vec3 contrast = vec3(0.5, 0.5, 0.5);",
+    "vec3 oscilation = vec3(1.0, 1.0, 1.0);",
+    "vec3 phase = vec3(0.0, 0.1, 0.2);",
     "  for(int i = 0; i < " + 4 + "; i++) {",
     "    float currentDistance = pow(vertices[i].y - vUv.y, 2.0) + pow(vertices[i].x - vUv.x, 2.0);",
     "    float inverseDistance = 1.0 / (currentDistance / sumDistance);",
@@ -129,7 +122,9 @@ const GradientShader = {
     // "    vec3 newcolor = rgb2lch(vertices[i].color) * vec3(1.0 / 100.0, 1.0 / 132.0, 1.0 / 360.0) * weight;",
     // "    color = color + newcolor;",
     // "    color = lch2rgb(color * vec3(100.0, 132.0, 360.0));",
+    // "    color = screenBlending(color + distort / 30.0, vertices[i].color * weight);",
     "    color = screenBlending(color, vertices[i].color * weight);",
+    // "       color = cosPalette(distort, brightness, contrast, oscilation, phase);",
     "  }",
     "  color = lin2srgb(color);",
     "  gl_FragColor = vec4(color.rgb, 1.0);",
@@ -137,5 +132,4 @@ const GradientShader = {
   ].join("\n"),
 }
 
-// export const vertexShader = GradientShader.vertexShader
 export const fragmentShader = GradientShader.fragmentShader
