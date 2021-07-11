@@ -3,7 +3,6 @@ import * as dat from "https://cdn.skypack.dev/dat.gui@0.7.7"
 import {
   vertexShader,
   fragmentShader,
-  vertices,
 } from "../shaders/moving-gradient/index.js"
 import { CustomMat } from "./utils.js"
 
@@ -15,6 +14,29 @@ const gui = new dat.GUI()
 
 const folder1 = gui.addFolder("Noise")
 folder1.add(settings, "strength", 0, 20, 0.01)
+
+export const vertices = [
+  {
+    x: 0.2,
+    y: 0.2,
+    color: new THREE.Color("hsl(20, 100%, 71%)"),
+  },
+  {
+    x: 0.8,
+    y: 0.2,
+    color: new THREE.Color("hsl(40, 100%, 71%)"),
+  },
+  {
+    x: 0.2,
+    y: 0.8,
+    color: new THREE.Color("hsl(200, 100%, 71%)"),
+  },
+  {
+    x: 0.8,
+    y: 0.8,
+    color: new THREE.Color("hsl(140, 100%, 65%)"),
+  },
+]
 
 export const sphereElement = function () {
   this.settings = settings

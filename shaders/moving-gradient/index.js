@@ -12,40 +12,11 @@ export const vertexShader = `
 ${noises}
 ${vertex}
 `
-
 // export const fragmentShader = await fetch(
 //   `/shaders/displacement-test/fragment.frag`
 // ).then((res) => res.text())
 
-export let vertices = [
-  {
-    x: 0.2,
-    y: 0.2,
-    color: new THREE.Color(0x5900ff),
-  },
-  {
-    x: 0.8,
-    y: 0.2,
-    color: new THREE.Color(0xae00ff),
-  },
-  {
-    x: 0.2,
-    y: 0.8,
-    color: new THREE.Color(0xff5900),
-  },
-  {
-    x: 0.8,
-    y: 0.8,
-    color: new THREE.Color(0xff0000),
-  },
-]
-
-let GradientShader = {
-  uniforms: {
-    vertices: { value: vertices },
-    resolution: { value: new THREE.Vector2(400, 400) },
-  },
-
+const GradientShader = {
   vertexShader: [
     "varying vec2 vUv;",
 
@@ -77,7 +48,7 @@ let GradientShader = {
     "  vec3 color;",
     "};",
 
-    "uniform Vertex vertices[" + vertices.length + "];",
+    "uniform Vertex vertices[" + 4 + "];",
     "varying vec2 vUv;",
     "varying vec3 fNormal;",
 
@@ -138,17 +109,17 @@ let GradientShader = {
     // "  vec2 position = vUv.xy / vec2(0.1).xy - vec2(4.5).xy;",
     "  vec3 color = vec3(0, 0, 0);",
     "  float sumDistance = 0.0;",
-    "  for(int i = 0; i < " + vertices.length + "; i++) {",
+    "  for(int i = 0; i < " + 4 + "; i++) {",
     "    float currentDistance = pow(vertices[i].y - vUv.y, 2.0) + pow(vertices[i].x - vUv.x, 2.0);",
     "    sumDistance += currentDistance;",
     "  }",
     "  float t = 0.0;",
-    "  for(int i = 0; i < " + vertices.length + "; i++) {",
+    "  for(int i = 0; i < " + 4 + "; i++) {",
     "    float currentDistance = pow(vertices[i].y - vUv.y, 2.0) + pow(vertices[i].x - vUv.x, 2.0);",
     "    float inverseDistance = 1.0 / (currentDistance / sumDistance);",
     "    t += inverseDistance;",
     "  }",
-    "  for(int i = 0; i < " + vertices.length + "; i++) {",
+    "  for(int i = 0; i < " + 4 + "; i++) {",
     "    float currentDistance = pow(vertices[i].y - vUv.y, 2.0) + pow(vertices[i].x - vUv.x, 2.0);",
     "    float inverseDistance = 1.0 / (currentDistance / sumDistance);",
     "    float weight = inverseDistance / t;",
@@ -164,11 +135,6 @@ let GradientShader = {
     "  gl_FragColor = vec4(color.rgb, 1.0);",
     "}",
   ].join("\n"),
-
-  side: THREE.DoubleSide,
-  // blending: THREE.AdditiveBlending,
-  // transparent: true,
-  // depthWrite: false
 }
 
 // export const vertexShader = GradientShader.vertexShader

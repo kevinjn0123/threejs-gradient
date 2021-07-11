@@ -9,13 +9,13 @@ export class Scene {
   constructor() {
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(
-      45,
+      100,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
     )
-    this.camera.position.set(-3, -2, -2)
-    // this.camera.lookAt(new THREE.Vector3(100, 1000, 100))
+    this.camera.position.set(0, 0, 10)
+    // this.camera.lookAt(new THREE.Vector3(0, 0, 0))
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true })
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
