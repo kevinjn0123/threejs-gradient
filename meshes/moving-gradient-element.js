@@ -5,40 +5,37 @@ import {
   fragmentShader,
 } from "../shaders/moving-gradient/index.js"
 import { CustomMat } from "./utils.js"
+import { getVertices } from "./consts.js"
 
 const settings = {
   strength: 2.0,
+}
+const points = {
+  point_1_x: 0.2,
+  point_1_y: 0.2,
+  point_2_x: 0.8,
+  point_2_y: 0.2,
+  point_3_x: 0.2,
+  point_3_y: 0.8,
+  point_4_x: 0.8,
+  point_4_y: 0.8,
 }
 
 const gui = new dat.GUI()
 
 const folder1 = gui.addFolder("Noise")
 folder1.add(settings, "strength", 0, 20, 0.01)
+const folder2 = gui.addFolder("Points")
+folder2.add(points, "point_1_x", 0, 1, 0.01)
+folder2.add(points, "point_1_y", 0, 1, 0.01)
+folder2.add(points, "point_2_x", 0, 1, 0.01)
+folder2.add(points, "point_2_y", 0, 1, 0.01)
+folder2.add(points, "point_3_x", 0, 1, 0.01)
+folder2.add(points, "point_3_y", 0, 1, 0.01)
+folder2.add(points, "point_4_x", 0, 1, 0.01)
+folder2.add(points, "point_4_y", 0, 1, 0.01)
 
-export const vertices = [
-  {
-    x: 0.7,
-    y: 0.2,
-    color: new THREE.Color("hsl(20, 100%, 71%)"),
-  },
-  {
-    x: 0.8,
-    y: 0.2,
-    color: new THREE.Color("hsl(40, 100%, 71%)"),
-  },
-  {
-    x: 0.2,
-    y: 0.8,
-    color: new THREE.Color("hsl(200, 100%, 71%)"),
-  },
-  {
-    x: 0.8,
-    y: 0.8,
-    color: new THREE.Color("hsl(140, 100%, 65%)"),
-  },
-]
-
-const material = CustomMat("textures/texture-1.jpg", {
+const material = CustomMat("textures/texture-3.jpg", {
   vertexShader,
   fragmentShader,
   uniforms: {
@@ -47,13 +44,14 @@ const material = CustomMat("textures/texture-1.jpg", {
     texture1: { type: "t", value: null },
     scale: { type: "f", value: 1.0 },
 
-    vertices: { value: vertices },
+    vertices: { value: getVertices(points) },
     resolution: { value: new THREE.Vector2(400, 400) },
   },
 })
 
 export const sphereElement = function () {
   this.settings = settings
+  this.points = points
 
   const geometry = new THREE.SphereGeometry(1, 80, 80)
   this.mesh = new THREE.Mesh(geometry, material)
@@ -61,6 +59,7 @@ export const sphereElement = function () {
 
 export const planeElement = function () {
   this.settings = settings
+  this.points = points
 
   const geometry = new THREE.PlaneGeometry(20, 20, 100, 100)
   this.mesh = new THREE.Mesh(geometry, material)

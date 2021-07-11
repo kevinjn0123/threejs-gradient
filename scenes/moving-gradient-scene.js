@@ -1,5 +1,6 @@
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
+import { getVertices } from "../meshes/consts.js"
 import {
   sphereElement,
   planeElement,
@@ -61,17 +62,20 @@ export class Scene {
     this.mesh = element.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = element.settings
+    this.meshPoints = element.points
+    this.vertices
 
     this.scene.add(this.mesh)
   }
 
   animationLoop() {
-    // ------------------------- ANIMATE PLANE -------------------------------
-    this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
-    // this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
-    // this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
+    // ------------------------- UPDATE SETTINGS -------------------------------
     this.mesh.material.uniforms.uNoiseStrength.value =
       this.meshSettings.strength
+    this.mesh.material.uniforms.vertices.value = getVertices(this.meshPoints)
+
+    // ------------------------- ANIMATE PLANE -------------------------------
+    this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
 
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)) // bind "this" to keep pointing the constructed scene
