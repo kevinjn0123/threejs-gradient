@@ -61,6 +61,6 @@ export const planeElement = function () {
   this.settings = settings
   this.points = points
 
-  const geometry = new THREE.PlaneGeometry(20, 20, 100, 100)
+  const geometry = new THREE.PlaneGeometry(20, 20, 2, 100)
   this.mesh = new THREE.Mesh(geometry, material)
 }

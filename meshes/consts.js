@@ -9,16 +9,16 @@ export const getVertices = (points) => [
   {
     x: points.point_2_x,
     y: points.point_2_y,
-    color: new THREE.Color("hsl(40, 100%, 50%)"),
+    color: new THREE.Color("hsl(0, 100%, 50%)"),
   },
   {
     x: points.point_3_x,
     y: points.point_3_y,
-    color: new THREE.Color("hsl(100, 100%, 50%)"),
+    color: new THREE.Color("hsl(130, 100%, 50%)"),
   },
   {
     x: points.point_4_x,
     y: points.point_4_y,
-    color: new THREE.Color("hsl(70, 100%, 70%)"),
+    color: new THREE.Color("hsl(230, 100%, 50%)"),
   },
 ]
