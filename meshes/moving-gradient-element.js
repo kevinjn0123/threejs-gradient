@@ -17,7 +17,7 @@ folder1.add(settings, "strength", 0, 20, 0.01)
 
 export const vertices = [
   {
-    x: 0.2,
+    x: 0.7,
     y: 0.2,
     color: new THREE.Color("hsl(20, 100%, 71%)"),
   },
@@ -38,22 +38,22 @@ export const vertices = [
   },
 ]
 
+const material = CustomMat("textures/texture-1.jpg", {
+  vertexShader,
+  fragmentShader,
+  uniforms: {
+    uTime: { value: 0 },
+    uNoiseStrength: { value: settings.strength },
+    texture1: { type: "t", value: null },
+    scale: { type: "f", value: 1.0 },
+
+    vertices: { value: vertices },
+    resolution: { value: new THREE.Vector2(400, 400) },
+  },
+})
+
 export const sphereElement = function () {
   this.settings = settings
-
-  const material = CustomMat("textures/texture-3.jpg", {
-    vertexShader,
-    fragmentShader,
-    uniforms: {
-      uTime: { value: 0 },
-      uNoiseStrength: { value: settings.strength },
-      texture1: { type: "t", value: null },
-      scale: { type: "f", value: 1.0 },
-
-      vertices: { value: vertices },
-      resolution: { value: new THREE.Vector2(400, 400) },
-    },
-  })
 
   const geometry = new THREE.SphereGeometry(1, 80, 80)
   this.mesh = new THREE.Mesh(geometry, material)
@@ -61,20 +61,6 @@ export const sphereElement = function () {
 
 export const planeElement = function () {
   this.settings = settings
-
-  const material = CustomMat("textures/texture-2.jpg", {
-    vertexShader,
-    fragmentShader,
-    uniforms: {
-      uTime: { value: 0 },
-      uNoiseStrength: { value: settings.strength },
-      texture1: { type: "t", value: null },
-      scale: { type: "f", value: 1.0 },
-
-      vertices: { value: vertices },
-      resolution: { value: new THREE.Vector2(400, 400) },
-    },
-  })
 
   const geometry = new THREE.PlaneGeometry(20, 20, 100, 100)
   this.mesh = new THREE.Mesh(geometry, material)
