@@ -8,10 +8,11 @@ import { vertexShader, fragmentShader } from "../shaders/material/index.js";
 const settings = {
   speed: 0.2,
   density: 1.5,
-  strength: 0.5,
+  strength: 1.0,
   frequency: 3.0,
   amplitude: 6.0,
-  mesh: 50,
+  meshCount: 50,
+  type: "plane",
   color1r: 0.8,
   color1g: 0.3,
   color1b: 0.43,
@@ -33,7 +34,7 @@ folder1.add(settings, "density", 0, 10, 0.01);
 folder1.add(settings, "strength", 0, 2, 0.01);
 folder2.add(settings, "frequency", 0, 10, 0.1);
 folder2.add(settings, "amplitude", 0, 10, 0.1);
-folder3.add(settings, "mesh", 20, 200, 5);
+
 folder4.add(settings, "color1r", 0, 1, 0.01);
 folder4.add(settings, "color1g", 0, 1, 0.01);
 folder4.add(settings, "color1b", 0, 1, 0.01);
@@ -44,8 +45,7 @@ folder4.add(settings, "color3r", 0, 1, 0.01);
 folder4.add(settings, "color3g", 0, 1, 0.01);
 folder4.add(settings, "color3b", 0, 1, 0.01);
 
-export const materialSphereElement = function () {
-  const geometry = new THREE.IcosahedronBufferGeometry(1, 64);
+export const materialElement = function () {
   var uniforms = {
     uTime: { value: 0 },
     uSpeed: { value: settings.speed },
@@ -53,7 +53,7 @@ export const materialSphereElement = function () {
     uNoiseStrength: { value: settings.strength },
     uFrequency: { value: settings.frequency },
     uIntensity: { value: settings.intensity },
-    mesh: { value: settings.mesh },
+    type: { value: settings.type },
     uC1r: { value: settings.color1r },
     uC1g: { value: settings.color1g },
     uC1b: { value: settings.color1b },
@@ -63,12 +63,23 @@ export const materialSphereElement = function () {
     uC3r: { value: settings.color3r },
     uC3g: { value: settings.color3g },
     uC3b: { value: settings.color3b },
+    meshCount: { value: settings.meshCount },
   };
 
+  var geometry;
+  if (settings.type === "plane") {
+    geometry = new THREE.PlaneGeometry(5, 5, 1, settings.meshCount);
+  } else if ((settings.type = "sphere")) {
+    geometry = new THREE.IcosahedronBufferGeometry(1, settings.meshCount);
+  }
+
   let material = new THREE.MeshStandardMaterial({
-    roughness: 0.5,
+    roughness: 0.2,
     metalness: 0.5,
     side: THREE.DoubleSide,
+    // wireframe: true,
+
+    // update the uniform values via userData
     userData: uniforms,
     onBeforeCompile: (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
@@ -86,13 +97,46 @@ export const materialSphereElement = function () {
       shader.uniforms.uC3r = uniforms.uC3r;
       shader.uniforms.uC3g = uniforms.uC3g;
       shader.uniforms.uC3b = uniforms.uC3b;
+      shader.uniforms.meshCount = uniforms.meshCount;
+      // //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
 
       shader.vertexShader = vertexShader;
       shader.fragmentShader = fragmentShader;
     },
   });
-
   this.mesh = new THREE.Mesh(geometry, material);
 
   this.settings = settings;
+
+  function regenerateGeometry(prevMesh) {
+    let newGeometry;
+
+    if (settings.type === "plane") {
+      newGeometry = new THREE.PlaneGeometry(5, 5, 1, settings.meshCount);
+    } else if (settings.type === "sphere") {
+      newGeometry = new THREE.IcosahedronBufferGeometry(1, settings.meshCount);
+    } else if (settings.type === "waterPlane") {
+      newGeometry = new THREE.PlaneGeometry(
+        5,
+        5,
+        settings.meshCount,
+        settings.meshCount
+      );
+    }
+    // console.log(settings.meshCount);
+    // console.log(settings.type);
+    // console.log(prevMesh.geometry);
+
+    prevMesh.geometry.dispose();
+    prevMesh.geometry = newGeometry;
+  }
+
+  folder3.add(settings, "meshCount", 20, 200, 10).onChange(() => {
+    regenerateGeometry(this.mesh);
+  });
+  folder3
+    .add(settings, "type", ["plane", "sphere", "waterPlane"])
+    .onChange(() => {
+      regenerateGeometry(this.mesh);
+    });
 };

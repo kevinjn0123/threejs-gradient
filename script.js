@@ -4,9 +4,7 @@
 // import { Scene as FlowerShaderScene } from "./scenes/flower-shader-scene.js"
 // import { Scene as BubbleScene } from './scenes/bubble-scene.js'
 // import {Scene as MaterialPlaneScene} from "./scenes/material-plane-scene.js"
-import {Scene as MaterialSphereScene} from "./scenes/material-sphere-scene.js"
-
-
+import { Scene as MaterialScene } from "./scenes/material-scene.js";
 
 // new ColorfulSpheresScene()
 // new ColorfulPlaneScene()
@@ -14,4 +12,4 @@ import {Scene as MaterialSphereScene} from "./scenes/material-sphere-scene.js"
 // new BubbleScene()
 // new NoisePlaneScene()
 // new MaterialPlaneScene()
-new MaterialSphereScene()
+new MaterialScene();
