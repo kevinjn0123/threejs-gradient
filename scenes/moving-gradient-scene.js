@@ -48,7 +48,6 @@ export class Scene {
   }
 
   addLights() {
-    // const _ambientLights = new THREE.AmbientLight(0xffffff, 1)
     const _ambientLights = new THREE.HemisphereLight(0xffffff, 0x000000, 1.4)
     const _lights = new THREE.PointLight(0xffffff, 0.5)
     _lights.position.set(20, 20, 20)
@@ -57,7 +56,6 @@ export class Scene {
   }
 
   addMeshElements() {
-    // const element = new textElement(this.font)
     // const element = new sphereElement()
     const element = new planeElement()
     this.mesh = element.mesh
@@ -65,7 +63,6 @@ export class Scene {
     this.meshSettings = element.settings
 
     this.scene.add(this.mesh)
-    // this.mesh.rotation.x = Math.PI / 2
   }
 
   animationLoop() {
