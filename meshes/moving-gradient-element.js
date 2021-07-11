@@ -51,6 +51,9 @@ export const planeElement = function () {
       uNoiseStrength: { value: settings.strength },
       texture1: { type: "t", value: null },
       scale: { type: "f", value: 1.0 },
+
+      vertices: { value: vertices },
+      resolution: { value: new THREE.Vector2(400, 400) },
     },
   })
 

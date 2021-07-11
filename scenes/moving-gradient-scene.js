@@ -58,8 +58,8 @@ export class Scene {
 
   addMeshElements() {
     // const element = new textElement(this.font)
-    const element = new sphereElement()
-    // const element = new planeElement()
+    // const element = new sphereElement()
+    const element = new planeElement()
     this.mesh = element.mesh
     console.log("this.mesh", this.mesh)
     this.meshSettings = element.settings
