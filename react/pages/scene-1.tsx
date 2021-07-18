@@ -16,24 +16,8 @@ export default function Scene1() {
     >
       <Canvas>
         {/* addMeshElements */}
-        <MovingGraadientElement />
         {/* <FadingImage /> */}
-        {/* <mesh>
-          <planeGeometry />
-          <shaderMaterial
-            side={THREE.DoubleSide}
-            fragmentShader={fragmentShader}
-            vertexShader={vertexShader}
-            uniforms={{
-              uTime: { value: 0 },
-              uNoiseStrength: { value: 5 },
-              texture1: { type: "t", value: null },
-              scale: { type: "f", value: 1.0 },
-              vertices: { value: getVertices(points) },
-              resolution: { value: new THREE.Vector2(400, 400) },
-            }}
-          />
-        </mesh> */}
+        <MovingGraadientElement />
         {/* addLights */}
         <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
         <pointLight args={[0xffffff, 0.5]} />
