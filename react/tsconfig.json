@@ -15,6 +15,10 @@
     "jsx": "preserve",
     "strictNullChecks": true
   },
+  "rules": {  
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/jsx.intrinsicelements": "off",
+  },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
