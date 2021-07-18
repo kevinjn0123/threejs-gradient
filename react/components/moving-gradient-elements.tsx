@@ -3,7 +3,7 @@ import { useShader } from "../hooks/use-shader"
 import * as THREE from "three"
 import "./MovingGradientMaterial"
 import { useRef } from "react"
-import { useFrame } from "@react-three/fiber"
+import { useFrame, useLoader } from "@react-three/fiber"
 
 const clock = new THREE.Clock()
 
@@ -14,10 +14,16 @@ export function MovingGraadientElement() {
       (mesh.current.uniforms.uTime.value = clock.getElapsedTime())
   )
 
+  const [texture1, texture2, texture3] = useLoader(THREE.TextureLoader, [
+    "/textures/texture-1.jpg",
+    "/textures/texture-2.jpg",
+    "/textures/texture-3.jpg",
+  ])
+
   return (
     <mesh>
       <planeGeometry args={[20, 20, 2, 100]} />
-      <movingGradientMaterial ref={mesh} />
+      <movingGradientMaterial ref={mesh} texture1={texture1} />
     </mesh>
   )
 }

@@ -42,7 +42,7 @@ export class MovingGradientMaterial extends THREE.ShaderMaterial {
       uniforms: {
         uTime: { value: 0 },
         uNoiseStrength: { value: 2 },
-        texture1: { type: "t", value: null },
+        texture1: { value: undefined },
         scale: { type: "f", value: 1.0 },
 
         vertices: { value: getVertices(points) },
@@ -315,6 +315,13 @@ export class MovingGradientMaterial extends THREE.ShaderMaterial {
         gl_FragColor = vec4(color.rgb, 1.0);
       }`,
     })
+  }
+
+  get texture1() {
+    return this.uniforms.texture1.value
+  }
+  set texture1(v) {
+    return (this.uniforms.texture1.value = v)
   }
 }
 
