@@ -1,4 +1,5 @@
 import { Canvas } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei"
 
 export function Scene1() {
   return (
@@ -16,6 +17,8 @@ export function Scene1() {
         </mesh>
         <ambientLight args={[0xff0000]} intensity={0.1} />
         <directionalLight color="blue" position={[0, 0, 5]} intensity={0.5} />
+        {/* @ts-ignore */}
+        <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
       </Canvas>
     </div>
   )
