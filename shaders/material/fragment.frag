@@ -87,6 +87,8 @@ void main() {
 vec3 color1 = vec3(uC1r, uC1g, uC1b);
 vec3 color2 = vec3(uC2r, uC2g, uC2b);
 vec3 color3 = vec3(uC3r, uC3g, uC3b);
+float clearcoat = 1.0;
+float clearcoatRoughness = 0.5;
 
 #include <clipping_planes_fragment>
 

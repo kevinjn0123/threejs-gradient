@@ -5,11 +5,11 @@
 // import { Scene as BubbleScene } from './scenes/bubble-scene.js'
 // import {Scene as MaterialPlaneScene} from "./scenes/material-plane-scene.js"
 import { Scene as MaterialScene } from "./scenes/material-scene.js";
-
+new MaterialScene();
 // new ColorfulSpheresScene()
 // new ColorfulPlaneScene()
 // new FlowerShaderScene()
 // new BubbleScene()
 // new NoisePlaneScene()
 // new MaterialPlaneScene()
-new MaterialScene();
+// new MaterialScene();

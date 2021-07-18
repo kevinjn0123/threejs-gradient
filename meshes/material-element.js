@@ -22,6 +22,8 @@ const settings = {
   color3r: 0.6,
   color3g: 0.71,
   color3b: 0.56,
+  roughness: 0.5,
+  metalness: 0.5,
 };
 const gui = new dat.GUI();
 
@@ -34,6 +36,8 @@ folder1.add(settings, "density", 0, 10, 0.01);
 folder1.add(settings, "strength", 0, 2, 0.01);
 folder2.add(settings, "frequency", 0, 10, 0.1);
 folder2.add(settings, "amplitude", 0, 10, 0.1);
+folder2.add(settings, "roughness", 0, 1, 0.01);
+folder2.add(settings, "metalness", 0, 1, 0.01);
 
 folder4.add(settings, "color1r", 0, 1, 0.01);
 folder4.add(settings, "color1g", 0, 1, 0.01);
@@ -64,6 +68,8 @@ export const materialElement = function () {
     uC3g: { value: settings.color3g },
     uC3b: { value: settings.color3b },
     meshCount: { value: settings.meshCount },
+    roughness: { value: settings.roughness },
+    metalness: { value: settings.metalness },
   };
 
   var geometry;
@@ -71,12 +77,20 @@ export const materialElement = function () {
     geometry = new THREE.PlaneGeometry(5, 5, 1, settings.meshCount);
   } else if ((settings.type = "sphere")) {
     geometry = new THREE.IcosahedronBufferGeometry(1, settings.meshCount);
+  } else if (settings.type === "waterPlane") {
+    newGeometry = new THREE.PlaneGeometry(
+      5,
+      5,
+      settings.meshCount,
+      settings.meshCount
+    );
   }
 
-  let material = new THREE.MeshStandardMaterial({
-    roughness: 0.2,
-    metalness: 0.5,
+  let material = new THREE.MeshPhysicalMaterial({
+    roughness: settings.roughness,
+    metalness: settings.metalness,
     side: THREE.DoubleSide,
+
     // wireframe: true,
 
     // update the uniform values via userData
@@ -98,6 +112,9 @@ export const materialElement = function () {
       shader.uniforms.uC3g = uniforms.uC3g;
       shader.uniforms.uC3b = uniforms.uC3b;
       shader.uniforms.meshCount = uniforms.meshCount;
+      material.roughness = settings.roughness;
+      material.metalness = settings.metalness;
+      console.log(material);
       // //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
 
       shader.vertexShader = vertexShader;

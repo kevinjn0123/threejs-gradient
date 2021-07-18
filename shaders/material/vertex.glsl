@@ -63,7 +63,6 @@ void main() {
   pos = position + normal * displacement * uNoiseStrength;
   vPos = pos;
 
-//   vDistort = distortion;
 
 
 
