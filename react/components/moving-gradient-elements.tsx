@@ -22,8 +22,9 @@ export function MovingGraadientElement() {
 
   return (
     <mesh>
-      <planeGeometry args={[20, 20, 2, 100]} />
-      <movingGradientMaterial ref={mesh} texture1={texture1} />
+      {/* <planeGeometry args={[20, 20, 2, 100]} /> */}
+      <sphereGeometry args={[1, 80, 80]} />
+      <movingGradientMaterial ref={mesh} texture1={texture2} />
     </mesh>
   )
 }
