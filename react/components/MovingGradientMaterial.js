@@ -38,9 +38,10 @@ const getVertices = (points) => [
 export class MovingGradientMaterial extends THREE.ShaderMaterial {
   constructor() {
     super({
+      side: THREE.DoubleSide,
       uniforms: {
         uTime: { value: 0 },
-        uNoiseStrength: { value: 1 },
+        uNoiseStrength: { value: 2 },
         texture1: { type: "t", value: null },
         scale: { type: "f", value: 1.0 },
 
@@ -223,9 +224,12 @@ export class MovingGradientMaterial extends THREE.ShaderMaterial {
             pnoise(position + uTime, vec3(0.0)) * uNoiseStrength;
         vec3 newPosition = position + normal * scale * texNoise * normalDisplacement;
       
+      
         fNormal = normal * normalDisplacement;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
       }
+      
+      
       `,
       fragmentShader: `struct Vertex {
         float x;
