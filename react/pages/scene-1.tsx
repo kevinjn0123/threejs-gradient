@@ -1,9 +1,6 @@
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import { MovingGraadientElement } from "../components/moving-gradient-elements"
-import { useShader } from "../hooks/use-shader"
-import * as THREE from "three"
-import { FadingImage } from "../components/fading-image"
 
 export default function Scene1() {
   return (
