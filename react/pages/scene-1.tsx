@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
-import { PlaneElement1 } from "../components/plane-element-1"
+import { PlaneElement } from "../components/moving-gradient-elements"
 
 export default function Scene1() {
   return (
@@ -11,7 +11,7 @@ export default function Scene1() {
         height: "100vh",
       }}
     >
-      <PlaneElement1 />
+      <PlaneElement />
       <Canvas>
         <mesh>
           <boxBufferGeometry />
