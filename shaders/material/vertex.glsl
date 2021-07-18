@@ -2,6 +2,7 @@
 varying vec3 vNormal;
 varying float displacement;
 varying vec3 vPos;
+varying float vDistort;
 
 uniform float uTime;
 uniform float uSpeed;
@@ -47,19 +48,26 @@ void main() {
 	#endif
 #endif
 	#include <begin_vertex>
-	vPos = transformed;
+  float t = uTime * uSpeed;
+  float distortion = pnoise((normal + t) * uNoiseDensity, vec3(10.0)) * uNoiseStrength;
+
+  // Disturb each vertex along the direction of its normal
+  vec3 pos = position + (normal * distortion);
+
+  // Create a sine wave from top to bottom of the sphere
+  // To increase the amount of waves, we'll use uFrequency
+//   float angle = sin(uv.y * uFrequency + t) * uNoiseStrength;
+      float displacement = 0.75 * cnoise(0.43 * position * uFrequency + t);
+
+//   pos = rotateY(pos, angle);
+  pos = position + normal * displacement * uNoiseStrength;
+  vPos = pos;
+
+//   vDistort = distortion;
 
 
-  //--------basic ------------
-  // vec3 scale = vec3(1.0, 1.0, 1.0);
-  // gl_Position = projectionMatrix * modelViewMatrix * vec4(pos * scale, 1.);
 
   //--------add displacement------------
-    float t = uTime * uSpeed;
-    float displacement = 0.75 * cnoise(0.43 * position * uFrequency + t);
-    vec3 newPos = position + normal * displacement * uNoiseStrength;
-    vNormal = normal * displacement;
-    vPos = position ;
 
 	#include <morphtarget_vertex>
 	#include <skinning_vertex>
@@ -71,6 +79,7 @@ void main() {
 	#include <worldpos_vertex>
 	#include <shadowmap_vertex>
 	#include <fog_vertex>
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1) ;
+	  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
+
 }
 

@@ -2,7 +2,11 @@
 
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js"
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls"
-import { planeElement } from "../meshes/plane-element.js"
+import { noisePlaneElement } from "../meshes/noise-plane-element.js"
+
+const cycle = 100;
+let seedNum;
+let gra;
 
 export class Scene {
   constructor() {
@@ -42,7 +46,7 @@ export class Scene {
   }
 
   addMeshElements() {
-    const plane = new planeElement()
+    const plane = new noisePlaneElement()
     this.mesh = plane.mesh
     this.meshSettings = plane.settings
 
@@ -69,19 +73,10 @@ export class Scene {
   animationLoop() {
     // ------------------------- ANIMATE PLANE -------------------------------
     this.mesh.material.uniforms.uTime.value = this.clock.getElapsedTime()
-    this.mesh.material.uniforms.uSpeed.value = this.meshSettings.speed
-    this.mesh.material.uniforms.uNoiseDensity.value = this.meshSettings.density
-    this.mesh.material.uniforms.uNoiseStrength.value = this.meshSettings.strength
-    this.mesh.material.uniforms.uFrequency.value = this.meshSettings.frequency
-    this.mesh.material.uniforms.uC1r.value = this.meshSettings.color1r
-    this.mesh.material.uniforms.uC1g.value = this.meshSettings.color1g
-    this.mesh.material.uniforms.uC1b.value = this.meshSettings.color1b
-    this.mesh.material.uniforms.uC2r.value = this.meshSettings.color2r
-    this.mesh.material.uniforms.uC2g.value = this.meshSettings.color2g
-    this.mesh.material.uniforms.uC2b.value = this.meshSettings.color2b
-    this.mesh.material.uniforms.uC3r.value = this.meshSettings.color3r
-    this.mesh.material.uniforms.uC3g.value = this.meshSettings.color3g
-    this.mesh.material.uniforms.uC3b.value = this.meshSettings.color3b
+    this.mesh.material.uniforms.uResolution.value = this.meshSettings.uResolution
+    this.mesh.material.uniforms.uPixelDensity.value = this.meshSettings.uPixelDensity
+    this.mesh.material.uniforms.uLightDir.value = this.meshSettings.uLightDir
+
 
 
 
