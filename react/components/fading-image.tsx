@@ -8,7 +8,8 @@ export function FadingImage() {
   const [texture1, texture2, dispTexture] = useLoader(THREE.TextureLoader, [
     "/img/Img1.jpg",
     "/img/Img2.jpg",
-    "/img/displacement/10.jpg",
+    // "/img/displacement/10.jpg",
+    "/textures/texture-2.jpg",
   ])
   const [hovered, setHover] = useState(false)
   useFrame(

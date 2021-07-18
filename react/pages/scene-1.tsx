@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls } from "@react-three/drei"
 import { MovingGraadientElement } from "../components/moving-gradient-elements"
+import { FadingImage } from "../components/fading-image"
 
 export default function Scene1() {
   return (
@@ -13,8 +14,8 @@ export default function Scene1() {
     >
       <Canvas>
         {/* addMeshElements */}
-        {/* <FadingImage /> */}
-        <MovingGraadientElement />
+        <FadingImage />
+        {/* <MovingGraadientElement /> */}
         {/* addLights */}
         <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
         <pointLight args={[0xffffff, 0.5]} />
