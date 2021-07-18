@@ -5,16 +5,17 @@ export function Scene1() {
     <div
       style={{
         background: "pink",
+        width: "100vw",
+        height: "100vh",
       }}
     >
-      Scene1
       <Canvas>
-        <ambientLight intensity={0.1} />
-        <directionalLight color="red" position={[0, 0, 5]} />
         <mesh>
-          <boxGeometry args={[2, 2, 2]} />
+          <boxBufferGeometry />
           <meshPhongMaterial />
         </mesh>
+        <ambientLight args={[0xff0000]} intensity={0.1} />
+        <directionalLight color="blue" position={[0, 0, 5]} intensity={0.5} />
       </Canvas>
     </div>
   )
