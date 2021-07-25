@@ -4,6 +4,7 @@ import { FormContext } from "../helpers/form-provider"
 
 export function GUI() {
   const ctx = useContext(FormContext) // States from Form
+  console.log("ctx - GUI", ctx)
 
   return (
     <div

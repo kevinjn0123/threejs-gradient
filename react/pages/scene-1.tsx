@@ -5,7 +5,8 @@ import { MovingGraadientElement } from "../components/moving-gradient-elements"
 import { Layout } from "../components/layout"
 import { GUI } from "../components/gui"
 import { useForm } from "react-hook-form"
-import { FormContext } from "../helpers/form-provider"
+import { FormContext, GreetingContext } from "../helpers/form-provider"
+import { useContextBridge } from "@react-three/drei"
 
 export default function Scene1() {
   const formProps = useForm({
@@ -13,6 +14,7 @@ export default function Scene1() {
       noiseStrength: 0.1,
     },
   })
+  const [name, setName] = React.useState("")
 
   return (
     <Layout>
@@ -23,26 +25,32 @@ export default function Scene1() {
           height: "100vh",
         }}
       >
-        {/* <FormContext.Provider value={formProps}> */}
-        <Canvas>
-          {/* <FormContext.Provider value={formProps}> */}
-          {/* addMeshElements */}
-          <MovingGraadientElement />
-          {/* addLights */}
-          <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
-          <pointLight args={[0xffffff, 0.5]} />
-          {/* @ts-ignore */}
-          <OrbitControls
-            enablePan={true}
-            enableZoom={true}
-            enableRotate={true}
-          />
-          {/* </FormContext.Provider> */}
-        </Canvas>
-        {/* <GUI /> */}
-        {/* </FormContext.Provider> */}
+        <FormContext.Provider value={formProps}>
+          <GreetingContext.Provider value={{ name, setName }}>
+            <SceneWrapper />
+          </GreetingContext.Provider>
+          <GUI />
+        </FormContext.Provider>
       </div>
     </Layout>
+  )
+}
+
+function SceneWrapper() {
+  const ContextBridge = useContextBridge(FormContext, GreetingContext)
+
+  return (
+    <Canvas>
+      <ContextBridge>
+        {/* addMeshElements */}
+        <MovingGraadientElement />
+        {/* addLights */}
+        <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
+        <pointLight args={[0xffffff, 0.5]} />
+        {/* @ts-ignore */}
+        <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} />
+      </ContextBridge>
+    </Canvas>
   )
 }
 
