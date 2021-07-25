@@ -1,6 +1,4 @@
 import dynamic from 'next/dynamic'
-// Step 5 - delete Instructions components
-import Instructions from '@/components/dom/Instructions'
 
 // Step 2 - update Box components
 const Box = dynamic(() => import('@/components/canvas/Box'), {
@@ -10,9 +8,7 @@ const Box = dynamic(() => import('@/components/canvas/Box'), {
 const Page = () => {
   return (
     <>
-      <Box r3f route='/scene-1' />
-      {/* Step 5 - delete Instructions components */}
-      <Instructions />
+      <Box r3f route='/box' />
     </>
   )
 }

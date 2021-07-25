@@ -31,7 +31,7 @@ const BoxComponent = ({ route }) => {
       >
         <boxGeometry args={[1, 1, 1]} />
         <meshBasicMaterial
-          color={hovered ? 'hotpink' : route === '/' ? 'darkgrey' : 'orange'}
+          color={hovered ? 'hotpink' : route === '/' ? 'blue' : 'orange'}
         />
       </mesh>
     </A11y>
