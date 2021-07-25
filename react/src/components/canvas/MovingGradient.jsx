@@ -2,7 +2,7 @@ import useStore from '@/helpers/store'
 import { A11y } from '@react-three/a11y'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
-import { useRef, useState, useContext } from 'react'
+import { useRef, useState, useContext, Suspense } from 'react'
 import './MovingGradientMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
@@ -51,8 +51,8 @@ const MovingGradientComp = ({ route }) => {
 
 export default function MovingGradientElement() {
   return (
-    <React.Suspense fallback={'Loading...'}>
+    <Suspense fallback={'Loading...'}>
       <MovingGradientComp />
-    </React.Suspense>
+    </Suspense>
   )
 }
