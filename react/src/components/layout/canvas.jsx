@@ -19,14 +19,6 @@ const LControl = () => {
   return <OrbitControls ref={control} domElement={dom.current} />
 }
 const LCanvas = ({ children }) => {
-  return (
-    <>
-      <SceneWrapper>{children}</SceneWrapper>
-    </>
-  )
-}
-
-function SceneWrapper({ children }) {
   const dom = useStore((state) => state.dom)
   const ContextBridge = useContextBridge(FormContext)
 
