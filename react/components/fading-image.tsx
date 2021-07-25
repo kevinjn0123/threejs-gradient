@@ -4,7 +4,7 @@ import { Canvas, useFrame, useLoader } from "@react-three/fiber"
 import "./ImageFadeMaterial"
 
 export function FadingImage() {
-  const ref = useRef()
+  const ref: any = useRef()
   const [texture1, texture2, dispTexture] = useLoader(THREE.TextureLoader, [
     "/img/Img1.jpg",
     "/img/Img2.jpg",
@@ -16,6 +16,7 @@ export function FadingImage() {
     () =>
       (ref.current.dispFactor = THREE.MathUtils.lerp(
         ref.current.dispFactor,
+        //  @ts-ignore
         !!hovered,
         0.1
       ))
@@ -26,6 +27,7 @@ export function FadingImage() {
       onPointerOut={(e) => setHover(false)}
     >
       <planeGeometry />
+      {/* @ts-ignore */}
       <imageFadeMaterial
         ref={ref}
         tex={texture1}

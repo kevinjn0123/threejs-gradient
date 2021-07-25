@@ -12,7 +12,7 @@ export function MovingGraadientElement() {
   const ctx = React.useContext(FormContext)
   const { noiseStrength } = ctx.watch()
 
-  const mesh = useRef()
+  const mesh: any = useRef()
   useFrame((state, delta) => {
     mesh.current.uniforms.uTime.value = clock.getElapsedTime()
     mesh.current.uniforms.uNoiseStrength.value = noiseStrength
@@ -28,6 +28,7 @@ export function MovingGraadientElement() {
     <mesh>
       {/* <planeGeometry args={[20, 20, 2, 100]} /> */}
       <sphereGeometry args={[1, 80, 80]} />
+      {/* @ts-ignore */}
       <movingGradientMaterial ref={mesh} texture1={texture2} />
     </mesh>
   )
