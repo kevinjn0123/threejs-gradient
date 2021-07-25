@@ -4,7 +4,7 @@ import { Suspense } from "react"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Suspense fallback={null /* or null */}>
+    <Suspense fallback={"Loading..." /* or null */}>
       <Component {...pageProps} />
     </Suspense>
   )
