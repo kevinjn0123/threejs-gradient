@@ -23,24 +23,24 @@ export default function Scene1() {
           height: "100vh",
         }}
       >
-        <FormContext.Provider value={formProps}>
-          <Canvas>
-            <FormContext.Provider value={formProps}>
-              {/* addMeshElements */}
-              <MovingGraadientElement />
-              {/* addLights */}
-              <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
-              <pointLight args={[0xffffff, 0.5]} />
-              {/* @ts-ignore */}
-              <OrbitControls
-                enablePan={true}
-                enableZoom={true}
-                enableRotate={true}
-              />
-            </FormContext.Provider>
-          </Canvas>
-          <GUI />
-        </FormContext.Provider>
+        {/* <FormContext.Provider value={formProps}> */}
+        <Canvas>
+          {/* <FormContext.Provider value={formProps}> */}
+          {/* addMeshElements */}
+          <MovingGraadientElement />
+          {/* addLights */}
+          <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
+          <pointLight args={[0xffffff, 0.5]} />
+          {/* @ts-ignore */}
+          <OrbitControls
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+          />
+          {/* </FormContext.Provider> */}
+        </Canvas>
+        {/* <GUI /> */}
+        {/* </FormContext.Provider> */}
       </div>
     </Layout>
   )
