@@ -4,7 +4,6 @@ import { A11yUserPreferences } from '@react-three/a11y'
 import useStore from '@/helpers/store'
 import { useEffect, useRef } from 'react'
 import { FormContext } from '../../helpers/form-provider'
-import { GUI } from '../dom/gui'
 import { useContextBridge } from '@react-three/drei'
 
 const LControl = () => {
