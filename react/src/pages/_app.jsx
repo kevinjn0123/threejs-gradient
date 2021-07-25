@@ -4,6 +4,8 @@ import { useEffect, Children } from 'react'
 import Header from '@/config'
 import dynamic from 'next/dynamic'
 import Dom from '@/components/layout/dom'
+import { FormContext } from '@/helpers/form-provider'
+import { useForm } from 'react-hook-form'
 
 import '@/styles/index.css'
 
@@ -50,10 +52,19 @@ function App({ Component, pageProps = {} }) {
   useEffect(() => {
     useStore.setState({ router })
   }, [router])
+
+  const formProps = useForm({
+    defaultValues: {
+      noiseStrength: 0.1,
+    },
+  })
+
   return (
     <>
       <Header title={pageProps.title} />
-      <ForwardPropsToR3fComponent comp={Component} pageProps={pageProps} />
+      <FormContext.Provider value={formProps}>
+        <ForwardPropsToR3fComponent comp={Component} pageProps={pageProps} />
+      </FormContext.Provider>
     </>
   )
 }

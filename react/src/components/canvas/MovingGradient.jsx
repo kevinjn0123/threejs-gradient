@@ -11,6 +11,7 @@ const clock = new THREE.Clock()
 const MovingGradientComponent = ({ route }) => {
   const ctx = useContext(FormContext)
   const { noiseStrength } = ctx.watch()
+  console.log('ctx', ctx)
 
   const router = useStore((s) => s.router)
   // This reference will give us direct access to the THREE.Mesh object
