@@ -7,7 +7,7 @@ import { FormContext } from '../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-function MovingGradientElementComp() {
+export function MovingGradientElement() {
   const ctx = React.useContext(FormContext)
   console.log('ctx', ctx)
   const { noiseStrength } = ctx.watch()
@@ -18,11 +18,7 @@ function MovingGradientElementComp() {
     mesh.current.uniforms.uNoiseStrength.value = noiseStrength
   })
 
-  const [texture1, texture2, texture3] = useLoader(THREE.TextureLoader, [
-    '/textures/texture-1.jpg',
-    '/textures/texture-2.jpg',
-    '/textures/texture-3.jpg',
-  ])
+  const texture2 = useTexture('/textures/texture-2.jpg')
 
   return (
     <mesh>
@@ -35,11 +31,3 @@ function MovingGradientElementComp() {
 }
 
 MovingGradientElement.defaultProps = {}
-
-export function MovingGradientElement() {
-  return (
-    <React.Suspense fallback={'Loading...'}>
-      <MovingGradientElementComp />
-    </React.Suspense>
-  )
-}
