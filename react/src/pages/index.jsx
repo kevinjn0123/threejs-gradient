@@ -10,7 +10,7 @@ const Box = dynamic(() => import('@/components/canvas/Box'), {
 const Page = () => {
   return (
     <>
-      <Box r3f route='/box' />
+      <Box r3f route='/scene-1' />
       {/* Step 5 - delete Instructions components */}
       <Instructions />
     </>

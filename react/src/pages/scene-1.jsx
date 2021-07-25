@@ -1,4 +1,7 @@
+import { GUI } from '@/components/dom/gui'
 import dynamic from 'next/dynamic'
+import { FormContext } from '../helpers/form-provider'
+import { useForm } from 'react-hook-form'
 
 const MovingGradient = dynamic(
   () => import('@/components/canvas/MovingGradient'),
@@ -8,9 +11,20 @@ const MovingGradient = dynamic(
 )
 
 const Page = () => {
+  console.log('useForm', useForm)
+  // const formProps = useForm({
+  //   defaultValues: {
+  //     noiseStrength: 0.1,
+  //   },
+  // })
+  // console.log('FormContext', FormContext)
+
   return (
     <>
       <MovingGradient r3f />
+      {/* <FormContext.Provider value={formProps}> */}
+      {/* <GUI /> */}
+      {/* </FormContext.Provider> */}
     </>
   )
 }
