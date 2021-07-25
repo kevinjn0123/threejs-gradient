@@ -5,8 +5,6 @@ import { FormContext } from "../helpers/form-provider"
 export function GUI() {
   const ctx = useContext(FormContext) // States from Form
 
-  console.log("ctx - GUI", ctx)
-
   return (
     <div
       style={{
@@ -22,8 +20,8 @@ export function GUI() {
         <input
           type="range"
           min="0"
-          max="11"
-          step="1"
+          max="10"
+          step="0.1"
           {...ctx.register("noiseStrength")}
         />
         <label>Noise Strength</label>

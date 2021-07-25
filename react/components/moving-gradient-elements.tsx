@@ -10,15 +10,13 @@ const clock = new THREE.Clock()
 
 export function MovingGraadientElement() {
   const ctx = React.useContext(FormContext)
-  console.log("ctx", ctx)
-  // const watchAllFields = ctx.watch()
-  // console.log("watchAllFields", watchAllFields)
+  const { noiseStrength } = ctx.watch()
 
   const mesh = useRef()
-  useFrame(
-    (state, delta) =>
-      (mesh.current.uniforms.uTime.value = clock.getElapsedTime())
-  )
+  useFrame((state, delta) => {
+    mesh.current.uniforms.uTime.value = clock.getElapsedTime()
+    mesh.current.uniforms.uNoiseStrength.value = noiseStrength
+  })
 
   const [texture1, texture2, texture3] = useLoader(THREE.TextureLoader, [
     "/textures/texture-1.jpg",

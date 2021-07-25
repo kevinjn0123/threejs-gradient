@@ -9,7 +9,9 @@ import { FormContext } from "../helpers/form-provider"
 
 export default function Scene1() {
   const formProps = useForm({
-    mode: "onBlur",
+    defaultValues: {
+      noiseStrength: 0.1,
+    },
   })
 
   return (
@@ -23,17 +25,19 @@ export default function Scene1() {
       >
         <FormContext.Provider value={formProps}>
           <Canvas>
-            {/* addMeshElements */}
-            <MovingGraadientElement />
-            {/* addLights */}
-            <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
-            <pointLight args={[0xffffff, 0.5]} />
-            {/* @ts-ignore */}
-            <OrbitControls
-              enablePan={true}
-              enableZoom={true}
-              enableRotate={true}
-            />
+            <FormContext.Provider value={formProps}>
+              {/* addMeshElements */}
+              <MovingGraadientElement />
+              {/* addLights */}
+              <hemisphereLight args={[0xffffff, 0x000000, 1.4]} />
+              <pointLight args={[0xffffff, 0.5]} />
+              {/* @ts-ignore */}
+              <OrbitControls
+                enablePan={true}
+                enableZoom={true}
+                enableRotate={true}
+              />
+            </FormContext.Provider>
           </Canvas>
           <GUI />
         </FormContext.Provider>
