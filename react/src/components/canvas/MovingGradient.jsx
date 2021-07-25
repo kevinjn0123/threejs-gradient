@@ -1,6 +1,7 @@
 import useStore from '@/helpers/store'
 import { A11y } from '@react-three/a11y'
 import { useFrame, useLoader } from '@react-three/fiber'
+import { useTexture } from '@react-three/drei'
 import { useRef, useState, useContext } from 'react'
 import './MovingGradientMaterial'
 import * as THREE from 'three'
@@ -28,7 +29,8 @@ const MovingGradientComponent = ({ route }) => {
         })()
       : null
   )
-  const [texture1, texture2, texture3] = useLoader(THREE.TextureLoader, [
+
+  const [texture1, texture2, texture3] = useTexture([
     '/textures/texture-1.jpg',
     '/textures/texture-2.jpg',
     '/textures/texture-3.jpg',
