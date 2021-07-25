@@ -1,4 +1,3 @@
-import Instructions from '@/components/dom/Instructions'
 import dynamic from 'next/dynamic'
 
 const MovingGradient = dynamic(
