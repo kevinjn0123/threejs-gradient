@@ -4,10 +4,16 @@ import * as THREE from "three"
 import "./MovingGradientMaterial"
 import { useRef } from "react"
 import { useFrame, useLoader } from "@react-three/fiber"
+import { FormContext } from "../helpers/form-provider"
 
 const clock = new THREE.Clock()
 
 export function MovingGraadientElement() {
+  const ctx = React.useContext(FormContext)
+  console.log("ctx", ctx)
+  // const watchAllFields = ctx.watch()
+  // console.log("watchAllFields", watchAllFields)
+
   const mesh = useRef()
   useFrame(
     (state, delta) =>
