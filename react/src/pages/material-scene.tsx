@@ -1,14 +1,14 @@
 import { GUI } from '@/components/dom/gui'
 import dynamic from 'next/dynamic'
 
-const MaterialMesh = dynamic(() => import('@/components/canvas/MaterialMesh'), {
+const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
   ssr: false,
 })
 
 const Page = () => {
   return (
     <>
-      <MaterialMesh r3f />
+      <GradientMesh r3f />
       <GUI />
     </>
   )

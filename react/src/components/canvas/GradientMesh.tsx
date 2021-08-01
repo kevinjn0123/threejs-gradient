@@ -1,13 +1,13 @@
 import { useFrame, useLoader } from '@react-three/fiber'
 import { Environment } from '@react-three/drei'
 import React, { useRef, useContext, Suspense } from 'react'
-import './MaterialMaterial'
+import './GradientMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-function MaterialMeshComp() {
+function GradientMeshComp() {
   const ctx: any = useContext(FormContext)
   const { noiseStrength } = ctx?.watch()
 
@@ -28,12 +28,12 @@ function MaterialMeshComp() {
       {/* <sphereGeometry args={[1, 80, 80]} /> */}
       <planeGeometry args={[5, 5, 1, 50]} />
       {/* @ts-ignore */}
-      <materialMaterial ref={material} />
+      <gradientMaterial ref={material} />
     </mesh>
   )
 }
 
-export default function MaterialMesh({ r3f }) {
+export default function GradientMesh({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
       <Environment
@@ -41,7 +41,7 @@ export default function MaterialMesh({ r3f }) {
         preset={null}
         background={true}
       />
-      <MaterialMeshComp />
+      <GradientMeshComp />
     </Suspense>
   )
 }

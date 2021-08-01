@@ -49,7 +49,7 @@ var uniforms = {
   rotation: { value: settings.rotation },
 }
 
-export class MaterialMaterial extends THREE.MeshPhysicalMaterial {
+export class GradientMaterial extends THREE.MeshPhysicalMaterial {
   constructor() {
     super({
       roughness: settings.roughness,
@@ -523,4 +523,4 @@ ReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 
   }
 }
 
-extend({ MaterialMaterial })
+extend({ GradientMaterial })
