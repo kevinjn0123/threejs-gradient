@@ -4,6 +4,7 @@ import React, { useRef, useContext, Suspense } from 'react'
 import './GradientMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
+import { CustomEnvironment } from './Environment'
 
 const clock = new THREE.Clock()
 
@@ -42,12 +43,13 @@ function GradientMeshComp() {
 export default function GradientMesh({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
-      <Environment
+      {/* <Environment
         // TODO: may be needed for including RGBELoader
         files={'/environments/cayley_interior_2k.hdr'}
         preset={null}
         background={true}
-      />
+      /> */}
+      <CustomEnvironment />
       <GradientMeshComp />
     </Suspense>
   )
