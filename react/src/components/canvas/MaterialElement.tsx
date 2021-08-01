@@ -3,7 +3,7 @@ import { A11y } from '@react-three/a11y'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { useRef, useState, useContext, Suspense } from 'react'
-import './MovingGradientMaterial'
+import './MaterialMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
 
@@ -11,7 +11,6 @@ const clock = new THREE.Clock()
 
 export default function MaterialElement({ r3f }) {
   const ctx: any = useContext(FormContext)
-  console.log('ctx', ctx)
   const { noiseStrength } = ctx?.watch()
 
   const router = useStore((s) => s.router)
@@ -24,8 +23,8 @@ export default function MaterialElement({ r3f }) {
   useFrame((state, delta) =>
     mesh.current
       ? (() => {
-          material.current.uniforms.uTime.value = clock.getElapsedTime()
-          material.current.uniforms.uNoiseStrength.value = noiseStrength
+          // material.current.uniforms.uTime.value = clock.getElapsedTime()
+          // material.current.uniforms.uNoiseStrength.value = noiseStrength
         })()
       : null
   )
@@ -46,7 +45,10 @@ export default function MaterialElement({ r3f }) {
       {/* <sphereGeometry args={[1, 80, 80]} /> */}
       <planeGeometry args={[20, 20, 2, 100]} />
       {/* @ts-ignore */}
-      <movingGradientMaterial ref={material} texture1={texture2} />
+      <materialMaterial
+        ref={material}
+        //  texture1={texture2}
+      />
     </mesh>
   )
 }
