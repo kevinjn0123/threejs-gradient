@@ -1,8 +1,6 @@
-import useStore from '@/helpers/store'
-import { A11y } from '@react-three/a11y'
 import { useFrame, useLoader } from '@react-three/fiber'
-import { useTexture, Environment } from '@react-three/drei'
-import React, { useRef, useState, useContext, Suspense } from 'react'
+import { Environment } from '@react-three/drei'
+import React, { useRef, useContext, Suspense } from 'react'
 import './MaterialMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
@@ -13,12 +11,8 @@ function MaterialElementComp() {
   const ctx: any = useContext(FormContext)
   const { noiseStrength } = ctx?.watch()
 
-  const router = useStore((s) => s.router)
-  // This reference will give us direct access to the THREE.Mesh object
   const mesh = useRef()
   const material: any = useRef()
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) =>
     mesh.current
@@ -29,26 +23,12 @@ function MaterialElementComp() {
       : null
   )
 
-  const [texture1, texture2, texture3] = useTexture([
-    '/textures/texture-1.jpg',
-    '/textures/texture-2.jpg',
-    '/textures/texture-3.jpg',
-  ])
-
-  // Return the view, these are regular Threejs elements expressed in JSX
   return (
-    <mesh
-      ref={mesh}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}
-    >
+    <mesh ref={mesh}>
       {/* <sphereGeometry args={[1, 80, 80]} /> */}
       <planeGeometry args={[5, 5, 1, 50]} />
       {/* @ts-ignore */}
-      <materialMaterial
-        ref={material}
-        //  texture1={texture2}
-      />
+      <materialMaterial ref={material} />
     </mesh>
   )
 }
