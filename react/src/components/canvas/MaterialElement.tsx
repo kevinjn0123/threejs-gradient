@@ -23,7 +23,7 @@ function MaterialElementComp() {
   useFrame((state, delta) =>
     mesh.current
       ? (() => {
-          // material.current.uniforms.uTime.value = clock.getElapsedTime()
+          material.current.userData.uTime.value = clock.getElapsedTime()
           // material.current.uniforms.uNoiseStrength.value = noiseStrength
         })()
       : null
@@ -43,7 +43,7 @@ function MaterialElementComp() {
       onPointerOut={(event) => setHover(false)}
     >
       {/* <sphereGeometry args={[1, 80, 80]} /> */}
-      <planeGeometry args={[20, 20, 2, 100]} />
+      <planeGeometry args={[5, 5, 1, 50]} />
       {/* @ts-ignore */}
       <materialMaterial
         ref={material}
