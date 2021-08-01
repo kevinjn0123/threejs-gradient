@@ -43,7 +43,8 @@ const MovingGradientComp = () => {
       onPointerOver={(event) => setHover(true)}
       onPointerOut={(event) => setHover(false)}
     >
-      <sphereGeometry args={[1, 80, 80]} />
+      {/* <sphereGeometry args={[1, 80, 80]} /> */}
+      <planeGeometry args={[20, 20, 2, 100]} />
       {/* @ts-ignore */}
       <movingGradientMaterial ref={material} texture1={texture2} />
     </mesh>
