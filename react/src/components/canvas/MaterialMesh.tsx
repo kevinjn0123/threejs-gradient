@@ -7,7 +7,7 @@ import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-function MaterialElementComp() {
+function MaterialMeshComp() {
   const ctx: any = useContext(FormContext)
   const { noiseStrength } = ctx?.watch()
 
@@ -33,7 +33,7 @@ function MaterialElementComp() {
   )
 }
 
-export default function MaterialElement({ r3f }) {
+export default function MaterialMesh({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
       <Environment
@@ -41,7 +41,7 @@ export default function MaterialElement({ r3f }) {
         preset={null}
         background={true}
       />
-      <MaterialElementComp />
+      <MaterialMeshComp />
     </Suspense>
   )
 }
