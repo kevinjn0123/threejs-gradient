@@ -2,11 +2,9 @@
 
 import * as THREE from "https://cdn.skypack.dev/pin/three@v0.128.0-SK0zhlI7UZNd0gIQdpJa/mode=imports/optimized/three.js";
 import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/controls/OrbitControls";
-// import { materialSphereElement } from "../meshes/material-sphere-element.js";
 import { materialElement } from "../meshes/material-element.js";
 import { RGBELoader } from "https://rawcdn.githack.com/mrdoob/three.js/d0340e3a147e290fa86d14bc3ed97d8e1c20602e/examples/jsm/loaders/RGBELoader.js";
-import { HDRCubeTextureLoader } from "https://rawcdn.githack.com/mrdoob/three.js/d0340e3a147e290fa86d14bc3ed97d8e1c20602e/examples/jsm/loaders/HDRCubeTextureLoader.js";
-import { RGBMLoader } from "https://rawcdn.githack.com/mrdoob/three.js/d0340e3a147e290fa86d14bc3ed97d8e1c20602e/examples/jsm/loaders/RGBMLoader.js";
+import { FlakesTexture } from "../../shaders/FlakesTexture.js";
 
 let textureCube;
 let hdrCubeRenderTarget;
@@ -15,7 +13,7 @@ export class Scene {
   constructor() {
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(
-      45,
+      30,
       window.innerWidth / window.innerHeight,
       0.1,
       1000
@@ -26,24 +24,17 @@ export class Scene {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setClearColor("black", 1);
-    this.renderer.outputEncoding = THREE.sRGBEncoding;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.25;
-    // this.renderer.shadowMap.enabled = true;
-    // this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-
     this.clock = new THREE.Clock();
-
     this.init();
   }
 
   init() {
     this.addCanvas();
-    // this.addLights();
     this.addMeshElements();
     this.animationLoop();
+    this.addTexture();
     this.addEnv();
   }
 
@@ -58,75 +49,37 @@ export class Scene {
     this.meshSettings = plane.settings;
     this.scene.add(this.mesh);
     this.mesh.rotation.x = Math.PI / 2;
-    // this.mesh.rotation.y = Math.PI / 2;
-    // this.mesh.recieveShadow = true;
   }
 
-  addLights() {
-    const _ambientLights = new THREE.AmbientLight(0x0, 5);
-    _ambientLights.position.set(0, 40, 200);
-    this.scene.add(_ambientLights);
-
-    var dirLight = new THREE.PointLight(0xffffff, 0.4);
-    dirLight.position.set(50, 50, 0);
-    dirLight.lookAt(0, 0, 0);
-    dirLight.position.multiplyScalar(50);
-    const targetObject = new THREE.Object3D();
-    targetObject.position.set(0, 0, 0);
-    this.scene.add(targetObject);
-    dirLight.target = targetObject;
-    this.scene.add(dirLight);
-
-    var dirLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
-    dirLight2.position.set(-50, 10, 0);
-    dirLight2.position.multiplyScalar(1);
-    const targetObject2 = new THREE.Object3D();
-    targetObject2.position.set(0, 0, 0);
-    this.scene.add(targetObject2);
-
-    dirLight2.target = targetObject2;
-    this.scene.add(dirLight2);
-
-    const rectLight1 = new THREE.RectAreaLight(0xffffff, 1, 10, 10);
-    rectLight1.position.set(10, 0, 0);
-    rectLight1.lookAt(0, 0, 0);
-    this.scene.add(rectLight1);
-
-    const rectLight2 = new THREE.RectAreaLight(0xffffff, 1, 10, 10);
-    rectLight2.position.set(-10, 0, 0);
-    rectLight2.lookAt(0, 0, 0);
-    this.scene.add(rectLight2);
-  }
-
+  //load .hdr and use as envmap and lighting
   addEnv() {
     const loader = new THREE.CubeTextureLoader();
     const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
 
     const newloader = new RGBELoader()
       .setDataType(THREE.UnsignedByteType)
-      .load("/textures/cayley_interior_4k.hdr", (hdrEquiRect, textureData) => {
+      .load("/textures/cayley_interior_2k.hdr", (hdrEquiRect, textureData) => {
         hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(hdrEquiRect);
         pmremGenerator.compileCubemapShader();
         this.mesh.material.envMap = hdrCubeRenderTarget.texture;
         this.mesh.material.lightMap = hdrCubeRenderTarget.texture;
-
+        this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
         this.renderer.toneMappingExposure = 0.7;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
         // this.scene.background = hdrCubeRenderTarget.texture;
       });
-    // loader.setPath("textures/park/");
-    // textureCube = loader.load([
-    //   "posx.jpeg",
-    //   "negx.jpeg",
-    //   "posy.jpeg",
-    //   "negy.jpeg",
-    //   "posz.jpeg",
-    //   "negz.jpeg",
-    // ]);
-    // textureCube.encoding = THREE.sRGBEncoding;
-    // this.scene.background = textureCube;
-    // this.mesh.material.envMap = textureCube;
+  }
+
+  // add flake material to the mesh
+  addTexture() {
+    let texture = new THREE.CanvasTexture(new FlakesTexture());
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    //repeat the wrapping 10 (x) and 6 (y) times
+    texture.repeat.x = 20;
+    texture.repeat.y = 20;
+    this.mesh.material.normalMap = texture;
+    // this.mesh.material.normalScale = new THREE.Vector2(0.01, 0.01);
   }
 
   animationLoop() {
@@ -149,6 +102,11 @@ export class Scene {
     this.mesh.material.userData.meshCount.value = this.meshSettings.meshCount;
     this.mesh.material.roughness = this.meshSettings.roughness;
     this.mesh.material.metalness = this.meshSettings.metalness;
+    this.mesh.material.normalScale = new THREE.Vector2(
+      this.meshSettings.normalScale,
+      this.meshSettings.normalScale
+    );
+    this.mesh.rotation.z = Math.PI * this.meshSettings.rotation;
 
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)); // bind "this" to keep pointing the constructed scene

@@ -24,6 +24,8 @@ const settings = {
   color3b: 0.56,
   roughness: 0.14,
   metalness: 0.2,
+  normalScale: 0.01,
+  rotation: 0,
 };
 const gui = new dat.GUI();
 
@@ -38,7 +40,8 @@ folder2.add(settings, "frequency", 0, 10, 0.1);
 folder2.add(settings, "amplitude", 0, 10, 0.1);
 folder2.add(settings, "roughness", 0, 1, 0.01);
 folder2.add(settings, "metalness", 0, 1, 0.01);
-
+folder2.add(settings, "normalScale", 0, 0.05, 0.01);
+folder3.add(settings, "rotation", 0, 2, 0.01);
 folder4.add(settings, "color1r", 0, 1, 0.01);
 folder4.add(settings, "color1g", 0, 1, 0.01);
 folder4.add(settings, "color1b", 0, 1, 0.01);
@@ -70,6 +73,8 @@ export const materialElement = function () {
     meshCount: { value: settings.meshCount },
     roughness: { value: settings.roughness },
     metalness: { value: settings.metalness },
+    normalScale: { value: settings.normalScale },
+    rotation: { value: settings.rotation },
   };
 
   var geometry;
@@ -95,11 +100,9 @@ export const materialElement = function () {
     transmission: 1,
     reflectivity: 1,
     opacity: 1,
-    specularIntensity: 1,
-    specularTint: 0xffffff,
-    // transparent:true
-    // fog: false,
-    // wireframe: true,
+    color: 0xffffff,
+    normalScale: new THREE.Vector2(settings.normalScale, settings.normalScale),
+
     // update the uniform values via userData
     userData: uniforms,
     onBeforeCompile: (shader) => {
@@ -118,9 +121,11 @@ export const materialElement = function () {
       shader.uniforms.uC3r = uniforms.uC3r;
       shader.uniforms.uC3g = uniforms.uC3g;
       shader.uniforms.uC3b = uniforms.uC3b;
+      shader.uniforms.rotation = uniforms.rotation;
       shader.uniforms.meshCount = uniforms.meshCount;
       material.roughness = settings.roughness;
       material.metalness = settings.metalness;
+      material.normalScale = uniforms.normalScale;
       console.log(material);
       // //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
 
@@ -129,9 +134,9 @@ export const materialElement = function () {
     },
   });
   this.mesh = new THREE.Mesh(geometry, material);
-
   this.settings = settings;
 
+  // update geometry with different types and mesh counts
   function regenerateGeometry(prevMesh) {
     let newGeometry;
 
@@ -158,6 +163,7 @@ export const materialElement = function () {
   folder3.add(settings, "meshCount", 20, 200, 10).onChange(() => {
     regenerateGeometry(this.mesh);
   });
+
   folder3
     .add(settings, "type", ["plane", "sphere", "waterPlane"])
     .onChange(() => {
