@@ -1,15 +1,15 @@
 import useStore from '@/helpers/store'
 import { A11y } from '@react-three/a11y'
 import { useFrame, useLoader } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
-import { useRef, useState, useContext, Suspense } from 'react'
+import { useTexture, Environment } from '@react-three/drei'
+import React, { useRef, useState, useContext, Suspense } from 'react'
 import './MaterialMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-export default function MaterialElement({ r3f }) {
+function MaterialElementComp() {
   const ctx: any = useContext(FormContext)
   const { noiseStrength } = ctx?.watch()
 
@@ -50,5 +50,18 @@ export default function MaterialElement({ r3f }) {
         //  texture1={texture2}
       />
     </mesh>
+  )
+}
+
+export default function MaterialElement({ r3f }) {
+  return (
+    <Suspense fallback={'Loading...'}>
+      <Environment
+        files={'/environments/cayley_interior_2k.hdr'} // Array of cubemap files OR single equirectangular file
+        preset={null}
+        background={false}
+      />
+      <MaterialElementComp />
+    </Suspense>
   )
 }
