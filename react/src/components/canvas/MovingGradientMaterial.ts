@@ -1,5 +1,5 @@
-import * as THREE from "three"
-import { extend } from "@react-three/fiber"
+import * as THREE from 'three'
+import { extend } from '@react-three/fiber'
 
 const points = {
   point_1_x: 0.2,
@@ -16,22 +16,22 @@ const getVertices = (points) => [
   {
     x: points.point_1_x,
     y: points.point_1_y,
-    color: new THREE.Color("hsl(20, 100%, 50%)"),
+    color: new THREE.Color('hsl(20, 100%, 50%)'),
   },
   {
     x: points.point_2_x,
     y: points.point_2_y,
-    color: new THREE.Color("hsl(0, 100%, 50%)"),
+    color: new THREE.Color('hsl(0, 100%, 50%)'),
   },
   {
     x: points.point_3_x,
     y: points.point_3_y,
-    color: new THREE.Color("hsl(130, 100%, 50%)"),
+    color: new THREE.Color('hsl(130, 100%, 50%)'),
   },
   {
     x: points.point_4_x,
     y: points.point_4_y,
-    color: new THREE.Color("hsl(230, 100%, 50%)"),
+    color: new THREE.Color('hsl(230, 100%, 50%)'),
   },
 ]
 
@@ -43,7 +43,7 @@ export class MovingGradientMaterial extends THREE.ShaderMaterial {
         uTime: { value: 0 },
         uNoiseStrength: { value: 2 },
         texture1: { value: undefined },
-        scale: { type: "f", value: 1.0 },
+        scale: { type: 'f', value: 1.0 },
 
         vertices: { value: getVertices(points) },
         resolution: { value: new THREE.Vector2(400, 400) },
@@ -318,9 +318,11 @@ export class MovingGradientMaterial extends THREE.ShaderMaterial {
   }
 
   get texture1() {
+    // @ts-ignore
     return this.uniforms.texture1.value
   }
   set texture1(v) {
+    // @ts-ignore
     return (this.uniforms.texture1.value = v)
   }
 }
