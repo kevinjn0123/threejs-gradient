@@ -7,6 +7,7 @@ export function CustomEnvironment({ background = false }) {
   const { gl, scene } = useThree()
   const [cubeMap] = useLoader(
     HDRCubeTextureLoader,
+    // 'cayley_interior_2k.hdr',
     [
       // @ts-ignore
       ['px.hdr', 'nx.hdr', 'py.hdr', 'ny.hdr', 'pz.hdr', 'nz.hdr'],
@@ -14,7 +15,7 @@ export function CustomEnvironment({ background = false }) {
     (loader) => {
       console.log('loader', loader)
       loader.setDataType(THREE.UnsignedByteType)
-      loader.setPath('/pisaHDR/')
+      loader.setPath('/hdr/')
     }
   )
   useEffect(() => {
@@ -24,8 +25,11 @@ export function CustomEnvironment({ background = false }) {
     cubeMap.dispose()
     gen.dispose()
     if (background) scene.background = hdrCubeRenderTarget.texture
+    else {
+      scene.background = new THREE.Color(0x000000)
+      scene.background.convertSRGBToLinear()
+    }
     scene.environment = hdrCubeRenderTarget.texture
-    scene.background?.convertSRGBToLinear()
     return () => (scene.environment = scene.background = null)
   }, [cubeMap])
   return null

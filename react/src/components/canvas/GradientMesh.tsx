@@ -45,11 +45,11 @@ export default function GradientMesh({ r3f }) {
     <Suspense fallback={'Loading...'}>
       {/* TODO: may be needed for including RGBELoader */}
       {/* <Environment
-        files={'/environments/cayley_interior_2k.hdr'}
+        files={'/hdr/cayley_interior_2k.hdr'}
         preset={null}
         background={true}
       /> */}
-      <CustomEnvironment />
+      <CustomEnvironment background={false} />
       <GradientMeshComp />
     </Suspense>
   )

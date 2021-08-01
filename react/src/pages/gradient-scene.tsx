@@ -19,7 +19,7 @@ export default Page
 export async function getStaticProps() {
   return {
     props: {
-      title: 'Scene Test',
+      title: 'Gradient Scene',
     },
   }
 }
