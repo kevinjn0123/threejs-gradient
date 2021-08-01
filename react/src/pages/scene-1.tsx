@@ -1,8 +1,8 @@
 import { GUI } from '@/components/dom/gui'
 import dynamic from 'next/dynamic'
 
-const MovingGradient = dynamic(
-  () => import('@/components/canvas/MovingGradient'),
+const MovingGradientMesh = dynamic(
+  () => import('@/components/canvas/MovingGradientMesh'),
   {
     ssr: false,
   }
@@ -11,7 +11,7 @@ const MovingGradient = dynamic(
 const Page = () => {
   return (
     <>
-      <MovingGradient r3f />
+      <MovingGradientMesh r3f />
       <GUI />
     </>
   )

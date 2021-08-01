@@ -9,7 +9,7 @@ import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-const MovingGradientComp = () => {
+const MovingGradientMeshComp = () => {
   const ctx: any = useContext(FormContext)
   console.log('ctx', ctx)
   const { noiseStrength } = ctx?.watch()
@@ -51,10 +51,10 @@ const MovingGradientComp = () => {
   )
 }
 
-export default function MovingGradientElement({ r3f }) {
+export default function MovingGradientMesh({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
-      <MovingGradientComp />
+      <MovingGradientMeshComp />
     </Suspense>
   )
 }
