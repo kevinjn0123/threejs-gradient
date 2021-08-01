@@ -43,7 +43,8 @@ export default function GradientMesh({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
       <Environment
-        files={'/environments/cayley_interior_2k.hdr'} // Array of cubemap files OR single equirectangular file
+        // TODO: may be needed for including RGBELoader
+        files={'/environments/cayley_interior_2k.hdr'}
         preset={null}
         background={true}
       />
