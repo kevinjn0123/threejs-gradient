@@ -10,9 +10,9 @@ import { FormContext } from '../../helpers/form-provider'
 const clock = new THREE.Clock()
 
 const MovingGradientComp = ({ route }) => {
-  const ctx = useContext(FormContext)
-  const { noiseStrength } = ctx.watch()
+  const ctx: any = useContext(FormContext)
   console.log('ctx', ctx)
+  const { noiseStrength } = ctx?.watch()
 
   const router = useStore((s) => s.router)
   // This reference will give us direct access to the THREE.Mesh object
@@ -49,7 +49,7 @@ const MovingGradientComp = ({ route }) => {
   )
 }
 
-export default function MovingGradientElement() {
+export default function MovingGradientElement({ r3f }) {
   return (
     <Suspense fallback={'Loading...'}>
       <MovingGradientComp />

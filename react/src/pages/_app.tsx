@@ -43,22 +43,21 @@ const ForwardPropsToR3fComponent = ({ comp, pageProps }) => {
     )
   } catch (error) {
     // fallback security for SSG
+    // @ts-ignore
     return <comp {...pageProps} />
   }
 }
 
-function App({ Component, pageProps = {} }) {
+function App({ Component, pageProps = { title: 'index' } }) {
   const router = useRouter()
   useEffect(() => {
     useStore.setState({ router })
   }, [router])
-
   const formProps = useForm({
     defaultValues: {
       noiseStrength: 0.1,
     },
   })
-
   return (
     <>
       <Header title={pageProps.title} />
