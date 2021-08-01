@@ -6,6 +6,7 @@ import useStore from '@/helpers/store'
 import { shaderMaterial } from '@react-three/drei'
 import glsl from 'glslify'
 
+// @ts-ignore
 import vertex from './glsl/shader.vert'
 
 // yarn add -D glsl-random to try pragma
@@ -60,6 +61,7 @@ const TestShader = (props) => {
       {...props}
     >
       <boxBufferGeometry args={[0.5, 0.5, 0.5]} />
+      {/* @ts-ignore */}
       <colorShiftMaterial attach='material' time={3} />
     </a.mesh>
   )
