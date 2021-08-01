@@ -9,7 +9,7 @@ import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
-const MovingGradientComp = ({ route }) => {
+const MovingGradientComp = () => {
   const ctx: any = useContext(FormContext)
   console.log('ctx', ctx)
   const { noiseStrength } = ctx?.watch()
@@ -17,7 +17,7 @@ const MovingGradientComp = ({ route }) => {
   const router = useStore((s) => s.router)
   // This reference will give us direct access to the THREE.Mesh object
   const mesh = useRef()
-  const material = useRef()
+  const material: any = useRef()
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
@@ -44,6 +44,7 @@ const MovingGradientComp = ({ route }) => {
       onPointerOut={(event) => setHover(false)}
     >
       <sphereGeometry args={[1, 80, 80]} />
+      {/* @ts-ignore */}
       <movingGradientMaterial ref={material} texture1={texture2} />
     </mesh>
   )

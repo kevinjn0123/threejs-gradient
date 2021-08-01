@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { FormContext } from '../../helpers/form-provider'
 
 export function GUI() {
-  const ctx = useContext(FormContext) // States from Form
+  const ctx: any = useContext(FormContext) // States from Form
   console.log('ctx - GUI', ctx)
 
   return (
