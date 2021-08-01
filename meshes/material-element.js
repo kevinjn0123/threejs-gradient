@@ -8,8 +8,8 @@ import { vertexShader, fragmentShader } from "../shaders/material/index.js";
 const settings = {
   speed: 0.2,
   density: 1.5,
-  strength: 1.0,
-  frequency: 3.0,
+  strength: 2.0,
+  frequency: 2.0,
   amplitude: 6.0,
   meshCount: 50,
   type: "plane",
@@ -22,8 +22,8 @@ const settings = {
   color3r: 0.6,
   color3g: 0.71,
   color3b: 0.56,
-  roughness: 0.5,
-  metalness: 0.5,
+  roughness: 0.14,
+  metalness: 0.2,
 };
 const gui = new dat.GUI();
 
@@ -90,9 +90,16 @@ export const materialElement = function () {
     roughness: settings.roughness,
     metalness: settings.metalness,
     side: THREE.DoubleSide,
-
+    clearcoat: 1.0,
+    cleacoatRoughness: 0.1,
+    transmission: 1,
+    reflectivity: 1,
+    opacity: 1,
+    specularIntensity: 1,
+    specularTint: 0xffffff,
+    // transparent:true
+    // fog: false,
     // wireframe: true,
-
     // update the uniform values via userData
     userData: uniforms,
     onBeforeCompile: (shader) => {
