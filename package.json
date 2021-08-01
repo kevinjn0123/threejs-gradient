@@ -1,8 +1,9 @@
 {
-  "name": "react-three-next",
+  "name": "threejs-gradient",
   "version": "2.0.0",
   "authors": [
-    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
+    "ruucm",
+    "stone-skipper"
   ],
   "license": "MIT",
   "private": true,
