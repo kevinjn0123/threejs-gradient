@@ -59,7 +59,7 @@ export default function MaterialElement({ r3f }) {
       <Environment
         files={'/environments/cayley_interior_2k.hdr'} // Array of cubemap files OR single equirectangular file
         preset={null}
-        background={false}
+        background={true}
       />
       <MaterialElementComp />
     </Suspense>
