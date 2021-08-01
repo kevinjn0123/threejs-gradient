@@ -100,8 +100,12 @@ export class Scene {
     this.mesh.material.userData.uC3g.value = this.meshSettings.color3g;
     this.mesh.material.userData.uC3b.value = this.meshSettings.color3b;
     this.mesh.material.userData.meshCount.value = this.meshSettings.meshCount;
+    this.mesh.material.envMapIntensity = this.meshSettings.envMapIntensity;
     this.mesh.material.roughness = this.meshSettings.roughness;
     this.mesh.material.metalness = this.meshSettings.metalness;
+    this.mesh.material.clearcoat = this.meshSettings.clearcoat;
+    this.mesh.material.clearcoatRoughness =
+      this.meshSettings.clearcoatRoughness;
     this.mesh.material.normalScale = new THREE.Vector2(
       this.meshSettings.normalScale,
       this.meshSettings.normalScale

@@ -22,8 +22,11 @@ const settings = {
   color3r: 0.6,
   color3g: 0.71,
   color3b: 0.56,
+  envMapIntensity: 1,
   roughness: 0.14,
   metalness: 0.2,
+  clearcoat: 1,
+  clearcoatRoughness: 0.5,
   normalScale: 0.01,
   rotation: 0,
 };
@@ -38,8 +41,11 @@ folder1.add(settings, "density", 0, 10, 0.01);
 folder1.add(settings, "strength", 0, 2, 0.01);
 folder2.add(settings, "frequency", 0, 10, 0.1);
 folder2.add(settings, "amplitude", 0, 10, 0.1);
+folder2.add(settings, "envMapIntensity", 0, 4, 0.1);
 folder2.add(settings, "roughness", 0, 1, 0.01);
 folder2.add(settings, "metalness", 0, 1, 0.01);
+folder2.add(settings, "clearcoat", 0, 1, 0.01);
+folder2.add(settings, "clearcoatRoughness", 0, 1, 0.01);
 folder2.add(settings, "normalScale", 0, 0.05, 0.01);
 folder3.add(settings, "rotation", 0, 2, 0.01);
 folder4.add(settings, "color1r", 0, 1, 0.01);
@@ -71,7 +77,10 @@ export const materialElement = function () {
     uC3g: { value: settings.color3g },
     uC3b: { value: settings.color3b },
     meshCount: { value: settings.meshCount },
+    envMapIntensity: { value: settings.envMapIntensity },
     roughness: { value: settings.roughness },
+    clearcoat: { value: settings.clearcoat },
+    clearcoatRoughness: { value: settings.clearcoatRoughness },
     metalness: { value: settings.metalness },
     normalScale: { value: settings.normalScale },
     rotation: { value: settings.rotation },
@@ -94,9 +103,12 @@ export const materialElement = function () {
   let material = new THREE.MeshPhysicalMaterial({
     roughness: settings.roughness,
     metalness: settings.metalness,
+    clearcoat: settings.clearcoat,
+    clearcoatRoughness: settings.clearcoatRoughness,
     side: THREE.DoubleSide,
-    clearcoat: 1.0,
-    cleacoatRoughness: 0.1,
+    envMapIntensity: settings.envMapIntensity,
+    // clearcoat: 1.0,
+    // cleacoatRoughness: 0.1,
     transmission: 1,
     reflectivity: 1,
     opacity: 1,
@@ -125,6 +137,9 @@ export const materialElement = function () {
       shader.uniforms.meshCount = uniforms.meshCount;
       material.roughness = settings.roughness;
       material.metalness = settings.metalness;
+      material.clearcoat = settings.clearcoat;
+      material.clearcoatRoughness = settings.clearcoatRoughness;
+      material.envMapIntensity = settings.envMapIntensity;
       material.normalScale = uniforms.normalScale;
       console.log(material);
       // //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
@@ -144,6 +159,8 @@ export const materialElement = function () {
       newGeometry = new THREE.PlaneGeometry(5, 5, 1, settings.meshCount);
     } else if (settings.type === "sphere") {
       newGeometry = new THREE.IcosahedronBufferGeometry(1, settings.meshCount);
+      settings.strength = 1.0;
+      settings.roughness = 0.26;
     } else if (settings.type === "waterPlane") {
       newGeometry = new THREE.PlaneGeometry(
         5,
