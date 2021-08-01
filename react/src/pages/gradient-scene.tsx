@@ -1,4 +1,4 @@
-import { GUI } from '@/components/dom/gui'
+import { GUIGradient } from '@/components/dom/gui-gradient'
 import dynamic from 'next/dynamic'
 
 const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
@@ -9,7 +9,7 @@ const Page = () => {
   return (
     <>
       <GradientMesh r3f />
-      <GUI />
+      <GUIGradient />
     </>
   )
 }

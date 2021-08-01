@@ -56,6 +56,8 @@ function App({ Component, pageProps = { title: 'index' } }) {
   const formProps = useForm({
     defaultValues: {
       noiseStrength: 0.1,
+      // for gradient-scene
+      type: 'plane',
     },
   })
   return (

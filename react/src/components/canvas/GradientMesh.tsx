@@ -7,9 +7,11 @@ import { FormContext } from '../../helpers/form-provider'
 
 const clock = new THREE.Clock()
 
+const meshCount = 50
+
 function GradientMeshComp() {
   const ctx: any = useContext(FormContext)
-  const { noiseStrength } = ctx?.watch()
+  const { type } = ctx?.watch()
 
   const mesh = useRef()
   const material: any = useRef()
@@ -25,8 +27,12 @@ function GradientMeshComp() {
 
   return (
     <mesh ref={mesh}>
-      {/* <sphereGeometry args={[1, 80, 80]} /> */}
-      <planeGeometry args={[5, 5, 1, 50]} />
+      {type === 'plane' && <planeGeometry args={[5, 5, 1, meshCount]} />}
+      {type === 'sphere' && <icosahedronBufferGeometry args={[1, meshCount]} />}
+      {type === 'waterPlane' && (
+        <planeGeometry args={[5, 5, meshCount, meshCount]} />
+      )}
+
       {/* @ts-ignore */}
       <gradientMaterial ref={material} />
     </mesh>
