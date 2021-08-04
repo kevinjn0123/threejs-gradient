@@ -5,9 +5,23 @@ import { OrbitControls } from "https://cdn.skypack.dev/three/examples/jsm/contro
 import { materialElement } from "../meshes/material-element.js";
 import { RGBELoader } from "https://rawcdn.githack.com/mrdoob/three.js/d0340e3a147e290fa86d14bc3ed97d8e1c20602e/examples/jsm/loaders/RGBELoader.js";
 import { FlakesTexture } from "../../shaders/FlakesTexture.js";
+import { EffectComposer } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/RenderPass.js";
+import { BloomPass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/BloomPass.js";
+import { FilmPass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/FilmPass.js";
+import { HalftonePass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/HalftonePass.js";
 
-let textureCube;
 let hdrCubeRenderTarget;
+let composer;
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const rtParameters = {
+  minFilter: THREE.LinearFilter,
+  magFilter: THREE.LinearFilter,
+  format: THREE.RGBFormat,
+  stencilBuffer: true,
+};
 
 export class Scene {
   constructor() {
@@ -36,11 +50,13 @@ export class Scene {
     this.animationLoop();
     this.addTexture();
     this.addEnv();
+    this.postProcessing();
   }
 
   addCanvas() {
     const canvas = this.renderer.domElement;
     document.body.appendChild(canvas);
+    this.camera.updateProjectionMatrix();
   }
 
   addMeshElements() {
@@ -65,7 +81,7 @@ export class Scene {
         this.mesh.material.lightMap = hdrCubeRenderTarget.texture;
         this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 0.7;
+        this.renderer.toneMappingExposure = 1.0;
         // this.scene.background = hdrCubeRenderTarget.texture;
       });
   }
@@ -79,7 +95,54 @@ export class Scene {
     texture.repeat.x = 20;
     texture.repeat.y = 20;
     this.mesh.material.normalMap = texture;
-    // this.mesh.material.normalScale = new THREE.Vector2(0.01, 0.01);
+  }
+
+  postProcessing() {
+    composer = new EffectComposer(
+      this.renderer
+      // new THREE.WebGLRenderTarget(
+      //   window.innerWidth,
+      //   window.innerHeight,
+      //   rtParameters
+      // )
+    );
+    composer.addPass(new RenderPass(this.scene, this.camera));
+
+    const bloomPass = new BloomPass(
+      1, // strength
+      25, // kernel size
+      4, // sigma ?
+      256 // blur render target resolution
+    );
+    composer.addPass(bloomPass);
+
+    const filmPass = new FilmPass(
+      0.45, // noise intensity
+      0.015, // scanline intensity
+      648, // scanline count
+      false // grayscale
+    );
+    filmPass.renderToScreen = true;
+    // composer.addPass(filmPass);
+
+    const halftoneParams = {
+      shape: 1,
+      radius: 2,
+      rotateR: Math.PI / 12,
+      rotateB: (Math.PI / 12) * 2,
+      rotateG: (Math.PI / 12) * 3,
+      scatter: 1,
+      blending: 1,
+      blendingMode: 1,
+      greyscale: false,
+      disable: false,
+    };
+    const halftonePass = new HalftonePass(width, height, halftoneParams);
+    composer.addPass(halftonePass);
+
+    composer.setSize(window.innerWidth, window.innerHeight);
+    const delta = this.clock.getDelta();
+    composer.render(delta);
   }
 
   animationLoop() {
@@ -115,7 +178,10 @@ export class Scene {
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)); // bind "this" to keep pointing the constructed scene
     this.renderer.render(this.scene, this.camera);
-
+    this.camera.updateProjectionMatrix();
     this.controls.update();
+    if (composer) {
+      composer.render();
+    }
   }
 }
