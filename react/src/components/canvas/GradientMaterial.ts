@@ -56,11 +56,8 @@ export class GradientMaterial extends THREE.MeshPhysicalMaterial {
       metalness: settings.metalness,
       side: THREE.DoubleSide,
       clearcoat: 1.0,
-      cleacoatRoughness: 0.1,
-      transmission: 1,
-      reflectivity: 1,
-      opacity: 1,
-      color: 0xffffff,
+      clearcoatRoughness: 0.5,
+
       normalScale: new THREE.Vector2(
         settings.normalScale,
         settings.normalScale
