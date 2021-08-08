@@ -22,6 +22,7 @@ const settings = {
   color3r: 0.6,
   color3g: 0.71,
   color3b: 0.56,
+  environment: false,
   envMapIntensity: 1,
   roughness: 0.14,
   metalness: 0.2,
@@ -30,8 +31,6 @@ const settings = {
   normalScale: 0.01,
   rotation: 0,
   bloomPass: false,
-  filmPass: true,
-  halftonePass: true,
 };
 const gui = new dat.GUI();
 
@@ -41,10 +40,11 @@ const folder3 = gui.addFolder("Mesh");
 const folder4 = gui.addFolder("Color");
 const folder5 = gui.addFolder("Texture");
 folder1.add(settings, "speed", 0.1, 1, 0.01);
-folder1.add(settings, "density", 0, 10, 0.01);
+// folder1.add(settings, "density", 0, 10, 0.01);
 folder1.add(settings, "strength", 0, 2, 0.01);
 folder1.add(settings, "frequency", 0, 10, 0.1);
-folder1.add(settings, "amplitude", 0, 10, 0.1);
+// folder1.add(settings, "amplitude", 0, 10, 0.1);
+folder2.add(settings, "environment");
 folder2.add(settings, "envMapIntensity", 0, 4, 0.1);
 folder2.add(settings, "roughness", 0, 1, 0.01);
 folder2.add(settings, "metalness", 0, 1, 0.01);
@@ -62,14 +62,11 @@ folder4.add(settings, "color3r", 0, 1, 0.01);
 folder4.add(settings, "color3g", 0, 1, 0.01);
 folder4.add(settings, "color3b", 0, 1, 0.01);
 folder5.add(settings, "bloomPass");
-folder5.add(settings, "filmPass");
-folder5.add(settings, "halftonePass");
 
 export const materialElement = function () {
   var uniforms = {
     uTime: { value: 0 },
     uSpeed: { value: settings.speed },
-    uNoiseDensity: { value: settings.density },
     uNoiseStrength: { value: settings.strength },
     uFrequency: { value: settings.frequency },
     uIntensity: { value: settings.intensity },
@@ -84,6 +81,7 @@ export const materialElement = function () {
     uC3g: { value: settings.color3g },
     uC3b: { value: settings.color3b },
     meshCount: { value: settings.meshCount },
+    environment: { value: settings.environment },
     envMapIntensity: { value: settings.envMapIntensity },
     roughness: { value: settings.roughness },
     clearcoat: { value: settings.clearcoat },
@@ -109,26 +107,13 @@ export const materialElement = function () {
   }
 
   let material = new THREE.MeshPhysicalMaterial({
-    roughness: settings.roughness,
-    metalness: settings.metalness,
-    clearcoat: settings.clearcoat,
-    clearcoatRoughness: settings.clearcoatRoughness,
     side: THREE.DoubleSide,
-    envMapIntensity: settings.envMapIntensity,
-    // clearcoat: 1.0,
-    // cleacoatRoughness: 0.1,
-    transmission: 1,
-    reflectivity: 1,
-    opacity: 1,
-    color: 0xffffff,
-    normalScale: new THREE.Vector2(settings.normalScale, settings.normalScale),
 
     // update the uniform values via userData
     userData: uniforms,
     onBeforeCompile: (shader) => {
       shader.uniforms.uTime = uniforms.uTime;
       shader.uniforms.uSpeed = uniforms.uSpeed;
-      shader.uniforms.uNoiseDensity = uniforms.uNoiseDensity;
       shader.uniforms.uNoiseStrength = uniforms.uNoiseStrength;
       shader.uniforms.uIntensity = uniforms.uIntensity;
       shader.uniforms.uFrequency = uniforms.uFrequency;
@@ -143,11 +128,12 @@ export const materialElement = function () {
       shader.uniforms.uC3b = uniforms.uC3b;
       shader.uniforms.rotation = uniforms.rotation;
       shader.uniforms.meshCount = uniforms.meshCount;
+      shader.uniforms.environment = uniforms.environment;
+      shader.uniforms.bloomPass = uniforms.bloomPass;
       material.roughness = settings.roughness;
       material.metalness = settings.metalness;
       material.clearcoat = settings.clearcoat;
       material.clearcoatRoughness = settings.clearcoatRoughness;
-      material.envMapIntensity = settings.envMapIntensity;
       material.normalScale = uniforms.normalScale;
       console.log(material);
       // //----------- console.log(shader.vertextShader or shader.fragmentShader) before assinging custom shader for reference
@@ -177,9 +163,6 @@ export const materialElement = function () {
         settings.meshCount
       );
     }
-    // console.log(settings.meshCount);
-    // console.log(settings.type);
-    // console.log(prevMesh.geometry);
 
     prevMesh.geometry.dispose();
     prevMesh.geometry = newGeometry;

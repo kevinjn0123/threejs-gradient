@@ -12,7 +12,9 @@ import { FilmPass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df
 import { HalftonePass } from "https://rawcdn.githack.com/mrdoob/three.js/c94947ac1df0485f20d5d8d99b40c08a79a4e889/examples/jsm/postprocessing/HalftonePass.js";
 
 let hdrCubeRenderTarget;
+let ambientLights;
 let composer;
+let bloomPass, halftonePass, halftoneParams;
 
 const width = window.innerWidth;
 const height = window.innerHeight;
@@ -71,16 +73,21 @@ export class Scene {
       .load("/textures/cayley_interior_2k.hdr", (hdrEquiRect, textureData) => {
         hdrCubeRenderTarget = pmremGenerator.fromEquirectangular(hdrEquiRect);
         pmremGenerator.compileCubemapShader();
+        this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.mesh.material.envMap = hdrCubeRenderTarget.texture;
         this.mesh.material.lightMap = hdrCubeRenderTarget.texture;
-        this.renderer.outputEncoding = THREE.sRGBEncoding;
         this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        this.renderer.toneMappingExposure = 1.0;
+        this.renderer.toneMappingExposure = 1;
+
         // this.scene.background = hdrCubeRenderTarget.texture;
       });
+
+    ambientLights = new THREE.AmbientLight(0x404040, 2);
+    ambientLights.position.set(20, 10, 0);
+    this.scene.add(ambientLights);
   }
 
-  // add flake material to the mesh
+  // add flake material to the mesh normal
   addTexture() {
     let texture = new THREE.CanvasTexture(new FlakesTexture());
     texture.wrapS = THREE.RepeatWrapping;
@@ -92,17 +99,10 @@ export class Scene {
   }
 
   postProcessing() {
-    composer = new EffectComposer(
-      this.renderer
-      // new THREE.WebGLRenderTarget(
-      //   window.innerWidth,
-      //   window.innerHeight,
-      //   rtParameters
-      // )
-    );
+    composer = new EffectComposer(this.renderer);
     composer.addPass(new RenderPass(this.scene, this.camera));
 
-    const bloomPass = new BloomPass(
+    bloomPass = new BloomPass(
       1, // strength
       25, // kernel size
       4, // sigma ?
@@ -119,7 +119,7 @@ export class Scene {
     filmPass.renderToScreen = true;
     // composer.addPass(filmPass);
 
-    const halftoneParams = {
+    halftoneParams = {
       shape: 1,
       radius: 2,
       rotateR: Math.PI / 12,
@@ -131,7 +131,7 @@ export class Scene {
       greyscale: false,
       disable: false,
     };
-    const halftonePass = new HalftonePass(width, height, halftoneParams);
+    halftonePass = new HalftonePass(width, height, halftoneParams);
     composer.addPass(halftonePass);
 
     composer.setSize(window.innerWidth, window.innerHeight);
@@ -143,7 +143,7 @@ export class Scene {
     // ------------------------- ANIMATE PLANE -------------------------------
     this.mesh.material.userData.uTime.value = this.clock.getElapsedTime();
     this.mesh.material.userData.uSpeed.value = this.meshSettings.speed;
-    this.mesh.material.userData.uNoiseDensity.value = this.meshSettings.density;
+    // this.mesh.material.userData.uNoiseDensity.value = this.meshSettings.density;
     this.mesh.material.userData.uNoiseStrength.value =
       this.meshSettings.strength;
     this.mesh.material.userData.uFrequency.value = this.meshSettings.frequency;
@@ -157,7 +157,6 @@ export class Scene {
     this.mesh.material.userData.uC3g.value = this.meshSettings.color3g;
     this.mesh.material.userData.uC3b.value = this.meshSettings.color3b;
     this.mesh.material.userData.meshCount.value = this.meshSettings.meshCount;
-    this.mesh.material.envMapIntensity = this.meshSettings.envMapIntensity;
     this.mesh.material.roughness = this.meshSettings.roughness;
     this.mesh.material.metalness = this.meshSettings.metalness;
     this.mesh.material.clearcoat = this.meshSettings.clearcoat;
@@ -169,13 +168,37 @@ export class Scene {
     );
     this.mesh.rotation.z = Math.PI * this.meshSettings.rotation;
 
+    if (this.meshSettings.environment === true) {
+      this.mesh.material.envMapIntensity = this.meshSettings.envMapIntensity;
+      this.mesh.material.envMap = hdrCubeRenderTarget.texture;
+      this.mesh.material.lightMap = hdrCubeRenderTarget.texture;
+      this.scene.remove(ambientLights);
+    } else {
+      this.mesh.material.envMapIntensity = 0.3;
+      this.mesh.material.envMap = null;
+      this.mesh.material.lightMap = null;
+      this.scene.add(ambientLights);
+    }
+
     // ------------------------- START ANIMATE -------------------------------
     window.requestAnimationFrame(this.animationLoop.bind(this)); // bind "this" to keep pointing the constructed scene
     this.renderer.render(this.scene, this.camera);
     this.camera.updateProjectionMatrix();
     this.controls.update();
-    if (composer) {
+    if (composer && this.meshSettings.bloomPass === true) {
+      bloomPass = new BloomPass(
+        1, // strength
+        25, // kernel size
+        4, // sigma ?
+        256 // blur render target resolution
+      );
+      halftonePass = new HalftonePass(width, height, halftoneParams);
+
       composer.render();
+    } else if (composer && this.meshSettings.bloomPass === false) {
+      bloomPass = null;
+      halftonePass = null;
+      // composer.removePass(halftonePass);
     }
   }
 }

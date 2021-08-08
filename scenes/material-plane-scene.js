@@ -58,23 +58,20 @@ export class Scene {
     dirLight.position.multiplyScalar(1);
     const targetObject = new THREE.Object3D();
     targetObject.position.set(0, -50, 0);
-this.scene.add(targetObject);
+    this.scene.add(targetObject);
 
-dirLight.target = targetObject;
+    dirLight.target = targetObject;
     this.scene.add(dirLight);
-
 
     var dirLight2 = new THREE.DirectionalLight(0xffffff, 1);
     dirLight2.position.set(10, 20, 10);
     dirLight2.position.multiplyScalar(20);
     const targetObject2 = new THREE.Object3D();
     targetObject2.position.set(10, -50, 10);
-this.scene.add(targetObject2);
+    this.scene.add(targetObject2);
 
-dirLight2.target = targetObject2;
+    dirLight2.target = targetObject2;
     this.scene.add(dirLight2);
-
-
   }
 
   animationLoop() {
