@@ -1,5 +1,5 @@
 import { useFrame, useLoader } from '@react-three/fiber'
-import React, { useRef, useContext, Suspense } from 'react'
+import React, { useRef, useContext, Suspense, useEffect } from 'react'
 import './GradientMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
@@ -25,7 +25,7 @@ export default function GradientMesh() {
   )
 
   return (
-    <mesh ref={mesh}>
+    <mesh ref={mesh} rotation={[Math.PI / 2, 0, 0]}>
       {type === 'plane' && <planeGeometry args={[5, 5, 1, meshCount]} />}
       {type === 'sphere' && <icosahedronBufferGeometry args={[1, meshCount]} />}
       {type === 'waterPlane' && (
