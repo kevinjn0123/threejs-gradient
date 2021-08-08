@@ -1,16 +1,14 @@
 import { useFrame, useLoader } from '@react-three/fiber'
-import { Environment } from '@react-three/drei'
 import React, { useRef, useContext, Suspense } from 'react'
 import './GradientMaterial'
 import * as THREE from 'three'
 import { FormContext } from '../../helpers/form-provider'
-import { CustomEnvironment } from './Environment'
 
 const clock = new THREE.Clock()
 
 const meshCount = 50
 
-function GradientMeshComp() {
+export default function GradientMesh() {
   const ctx: any = useContext(FormContext)
   const { type } = ctx?.watch()
 
@@ -37,20 +35,5 @@ function GradientMeshComp() {
       {/* @ts-ignore */}
       <gradientMaterial ref={material} />
     </mesh>
-  )
-}
-
-export default function GradientMesh({ r3f }) {
-  return (
-    <Suspense fallback={'Loading...'}>
-      {/* TODO: may be needed for including RGBELoader */}
-      {/* <Environment
-        files={'/hdr/cayley_interior_2k.hdr'}
-        preset={null}
-        background={true}
-      /> */}
-      <CustomEnvironment background={false} />
-      <GradientMeshComp />
-    </Suspense>
   )
 }
