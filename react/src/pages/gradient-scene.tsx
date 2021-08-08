@@ -10,13 +10,6 @@ const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
 const Page = () => {
   return (
     <>
-      {/* <GradientMesh r3f /> */}
-      {/* <Environment
-        r3f
-        files={'cayley_interior_2k.hdr'}
-        path={'/hdr/'}
-        preset={null}
-      /> */}
       <Scene r3f />
       <GUIGradient />
     </>
