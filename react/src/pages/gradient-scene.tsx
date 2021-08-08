@@ -1,7 +1,9 @@
 import { GUIGradient } from '@/components/dom/gui-gradient'
 import dynamic from 'next/dynamic'
 import { Environment } from '@react-three/drei'
-import React, { useRef, useContext, Suspense } from 'react'
+import { Suspense } from 'react'
+import * as THREE from 'three'
+import { useThree } from '@react-three/fiber'
 
 const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
   ssr: false,
@@ -27,6 +29,9 @@ export async function getStaticProps() {
 }
 
 function Scene({ r3f }) {
+  const { scene } = useThree()
+  scene.background = new THREE.Color(0x000000)
+
   return (
     <Suspense fallback={'Loading...'}>
       <Environment
