@@ -59,6 +59,7 @@ function App({ Component, pageProps = { title: 'index' } }) {
       // for gradient-scene
       type: 'plane',
       env: 'env',
+      postProcessing: 'threejs',
     },
   })
   return (

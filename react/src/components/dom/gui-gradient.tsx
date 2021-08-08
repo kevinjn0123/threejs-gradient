@@ -52,6 +52,29 @@ export function GUIGradient() {
             <label>Light</label>
           </div>
         </div>
+
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <div>
+            <input
+              {...ctx.register('postProcessing')}
+              type='radio'
+              value='threejs'
+            />
+            <label>threejs</label>
+          </div>
+          <div>
+            <input
+              {...ctx.register('postProcessing')}
+              type='radio'
+              value='r3f'
+            />
+            <label>@react-three/postprocessing</label>
+          </div>
+        </div>
       </div>
     </div>
   )

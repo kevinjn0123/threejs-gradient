@@ -3,8 +3,9 @@ import { usePostProcessing } from '@/hooks/use-post-processing'
 import { Environment } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useContext } from 'react'
 import { EffectComposer, Noise } from '@/components/pp'
+import { FormContext } from '@/helpers/form-provider'
 
 const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
   ssr: false,
@@ -30,11 +31,14 @@ export async function getStaticProps() {
 }
 
 function Scene({ r3f }) {
+  const ctx: any = useContext(FormContext)
+  const { postProcessing } = ctx?.watch()
+
   const { camera } = useThree()
   // scene.background = new THREE.Color(0x000000)
   camera.position.set(2, 4, 1)
 
-  // usePostProcessing()
+  usePostProcessing({ on: postProcessing === 'threejs' })
 
   return (
     <Suspense fallback={'Loading...'}>
@@ -44,9 +48,12 @@ function Scene({ r3f }) {
         preset={null}
         background={true}
       />
-      <EffectComposer>
-        <Noise opacity={0.2} />
-      </EffectComposer>
+      {postProcessing === 'r3f' && (
+        <EffectComposer>
+          <Noise opacity={0.2} />
+        </EffectComposer>
+      )}
+
       <GradientMesh />
     </Suspense>
   )

@@ -4,7 +4,7 @@ import { useEffect, useMemo } from 'react'
 import { EffectComposer as EffectComposerImpl } from '@/components/pp/lib/from-threejs/postprocessing/EffectComposer'
 import { RenderPass } from '@/components/pp/lib/from-threejs/postprocessing/RenderPass'
 
-export function usePostProcessing() {
+export function usePostProcessing({ on = false }) {
   const { gl, scene, camera, size } = useThree()
 
   const composer = useMemo(() => {
@@ -38,7 +38,7 @@ export function usePostProcessing() {
 
   useEffect(() => composer?.setSize(size.width, size.height), [composer, size])
   useFrame(
-    (_, delta) => void ((gl.autoClear = true), composer.render(delta)),
+    (_, delta) => void ((gl.autoClear = true), on && composer.render(delta)),
     1
   )
 }
