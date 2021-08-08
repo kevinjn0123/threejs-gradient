@@ -1,7 +1,20 @@
+/* eslint-disable */
 import * as THREE from 'three'
-import React, { forwardRef, useMemo, useEffect, createContext, useRef, useImperativeHandle } from 'react'
+import React, {
+  forwardRef,
+  useMemo,
+  useEffect,
+  createContext,
+  useRef,
+  useImperativeHandle,
+} from 'react'
 import { useThree, useFrame } from '@react-three/fiber'
-import { EffectComposer as EffectComposerImpl, RenderPass, EffectPass, NormalPass } from 'postprocessing'
+import {
+  EffectComposer as EffectComposerImpl,
+  RenderPass,
+  EffectPass,
+  NormalPass,
+} from 'postprocessing'
 import { TextureDataType } from 'three'
 import { isWebGL2Available } from './util'
 
@@ -42,7 +55,12 @@ const EffectComposer = React.memo(
       }: EffectComposerProps,
       ref
     ) => {
-      const { gl, scene: defaultScene, camera: defaultCamera, size } = useThree()
+      const {
+        gl,
+        scene: defaultScene,
+        camera: defaultCamera,
+        size,
+      } = useThree()
       scene = scene || defaultScene
       camera = camera || defaultCamera
 
@@ -62,16 +80,34 @@ const EffectComposer = React.memo(
           effectComposer.addPass(pass)
         }
         return [effectComposer, pass]
-      }, [camera, gl, depthBuffer, stencilBuffer, multisampling, frameBufferType, scene, disableNormalPass])
+      }, [
+        camera,
+        gl,
+        depthBuffer,
+        stencilBuffer,
+        multisampling,
+        frameBufferType,
+        scene,
+        disableNormalPass,
+      ])
 
-      useEffect(() => composer?.setSize(size.width, size.height), [composer, size])
-      useFrame((_, delta) => void ((gl.autoClear = autoClear), composer.render(delta)), renderPriority)
+      useEffect(
+        () => composer?.setSize(size.width, size.height),
+        [composer, size]
+      )
+      useFrame(
+        (_, delta) => void ((gl.autoClear = autoClear), composer.render(delta)),
+        renderPriority
+      )
 
       const group = useRef(null)
       useEffect(() => {
         let effectPass
         if (group.current && group.current.__r3f && composer) {
-          effectPass = new EffectPass(camera, ...(group.current as any).__r3f.objects)
+          effectPass = new EffectPass(
+            camera,
+            ...(group.current as any).__r3f.objects
+          )
           composer.addPass(effectPass)
           effectPass.renderToScreen = true
         }
@@ -81,7 +117,10 @@ const EffectComposer = React.memo(
       }, [composer, children, camera])
 
       // Memoize state, otherwise it would trigger all consumers on every render
-      const state = useMemo(() => ({ composer, normalPass, camera, scene }), [composer, normalPass, camera, scene])
+      const state = useMemo(
+        () => ({ composer, normalPass, camera, scene }),
+        [composer, normalPass, camera, scene]
+      )
 
       // Expose the composer
       useImperativeHandle(ref, () => composer, [composer])
