@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ShaderMaterial, UniformsUtils } from 'three'
 
 import { Pass, FullScreenQuad } from './Pass'
