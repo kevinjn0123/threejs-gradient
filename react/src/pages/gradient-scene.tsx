@@ -4,6 +4,7 @@ import { Environment } from '@react-three/drei'
 import { Suspense } from 'react'
 import * as THREE from 'three'
 import { useThree } from '@react-three/fiber'
+import * as PP from '@/components/pp'
 
 const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
   ssr: false,
@@ -39,6 +40,9 @@ function Scene({ r3f }) {
         path={'/hdr/'}
         preset={null}
       />
+      <PP.EffectComposer>
+        <PP.Noise opacity={0.2} />
+      </PP.EffectComposer>
       <GradientMesh />
     </Suspense>
   )
