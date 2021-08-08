@@ -42,6 +42,7 @@ export async function getStaticProps() {
 function Scene({ r3f }) {
   const { gl, scene, camera, size } = useThree()
   // scene.background = new THREE.Color(0x000000)
+  camera.position.set(2, 4, 1)
 
   const composer = new EffectComposer(gl)
   composer.addPass(new RenderPass(scene, camera))
