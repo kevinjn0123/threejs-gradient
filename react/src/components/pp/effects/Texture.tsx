@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { TextureEffect } from 'postprocessing'
 import React, { Ref, forwardRef, useMemo, useLayoutEffect } from 'react'
 import { useLoader } from '@react-three/fiber'
@@ -16,6 +17,9 @@ export const Texture = forwardRef<TextureEffect, TextureProps>(function Texture(
     t.encoding = sRGBEncoding
     t.wrapS = t.wrapT = RepeatWrapping
   }, [t])
-  const effect = useMemo(() => new TextureEffect({ ...props, texture: t || texture }), [props, t, texture])
+  const effect = useMemo(
+    () => new TextureEffect({ ...props, texture: t || texture }),
+    [props, t, texture]
+  )
   return <primitive ref={ref} object={effect} dispose={null} />
 })

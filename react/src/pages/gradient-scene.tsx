@@ -42,6 +42,7 @@ function Scene({ r3f }) {
       />
       <PP.EffectComposer>
         <PP.Noise opacity={0.2} />
+        {/* <PP.HalftonePass /> */}
       </PP.EffectComposer>
       <GradientMesh />
     </Suspense>

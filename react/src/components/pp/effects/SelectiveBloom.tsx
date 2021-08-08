@@ -1,11 +1,21 @@
+// @ts-nocheck
 import { SelectiveBloomEffect, BlendFunction } from 'postprocessing'
-import React, { Ref, MutableRefObject, forwardRef, useMemo, useEffect, useContext } from 'react'
+import React, {
+  Ref,
+  MutableRefObject,
+  forwardRef,
+  useMemo,
+  useEffect,
+  useContext,
+} from 'react'
 import { Object3D } from 'three'
 import { EffectComposerContext } from '../EffectComposer'
 
 type ObjectRef = MutableRefObject<Object3D>
 
-export type SelectiveBloomProps = ConstructorParameters<typeof SelectiveBloomEffect>[2] &
+export type SelectiveBloomProps = ConstructorParameters<
+  typeof SelectiveBloomEffect
+>[2] &
   Partial<{
     lights: ObjectRef[]
     selection: ObjectRef | ObjectRef[]
@@ -54,11 +64,24 @@ export const SelectiveBloom = forwardRef(function SelectiveBloom(
         height,
         kernelSize,
       }),
-    [camera, height, intensity, kernelSize, luminanceSmoothing, luminanceThreshold, scene, width]
+    [
+      camera,
+      height,
+      intensity,
+      kernelSize,
+      luminanceSmoothing,
+      luminanceThreshold,
+      scene,
+      width,
+    ]
   )
 
   useEffect(() => {
-    effect.selection.set(Array.isArray(selection) ? selection.map((ref) => ref.current) : [selection.current])
+    effect.selection.set(
+      Array.isArray(selection)
+        ? selection.map((ref) => ref.current)
+        : [selection.current]
+    )
   }, [effect, selection])
 
   useEffect(() => {

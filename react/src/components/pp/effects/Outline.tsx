@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { OutlineEffect } from 'postprocessing'
 import React, {
   Ref,
@@ -74,7 +75,11 @@ export const Outline = forwardRef(function Outline(
 
   useEffect(() => {
     effect.clearSelection()
-    effect.setSelection(Array.isArray(selection) ? selection.map((ref) => ref.current) : [selection.current])
+    effect.setSelection(
+      Array.isArray(selection)
+        ? selection.map((ref) => ref.current)
+        : [selection.current]
+    )
   }, [effect, selection])
 
   useEffect(() => {

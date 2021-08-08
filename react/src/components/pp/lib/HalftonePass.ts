@@ -1,7 +1,9 @@
+// @ts-nocheck
 import { ShaderMaterial, UniformsUtils } from 'three'
 
 import { Pass, FullScreenQuad } from './Pass'
 import { HalftoneShader } from './HalftoneShader'
+import { BlendFunction } from './BlendFunction'
 
 /**
  * RGB Halftone pass for three.js effects composer. Requires HalftoneShader.

@@ -9,18 +9,24 @@ export const wrapEffect = <T extends new (...args: any[]) => Effect>(
   effectImpl: T,
   defaultBlendMode: BlendFunction = BlendFunction.NORMAL
 ) =>
-  forwardRef<T, ConstructorParameters<typeof effectImpl>[0] & DefaultProps>(function Wrap(
-    { blendFunction, opacity, ...props }: React.PropsWithChildren<DefaultProps & ConstructorParameters<T>[0]>,
-    ref
-  ) {
-    const effect: Effect = useMemo(() => new effectImpl(props), [props])
+  forwardRef<T, ConstructorParameters<typeof effectImpl>[0] & DefaultProps>(
+    function Wrap(
+      {
+        blendFunction,
+        opacity,
+        ...props
+      }: React.PropsWithChildren<DefaultProps & ConstructorParameters<T>[0]>,
+      ref
+    ) {
+      const effect: Effect = useMemo(() => new effectImpl(props), [props])
 
-    useLayoutEffect(() => {
-      effect.blendMode.blendFunction = blendFunction || defaultBlendMode
-      if (opacity !== undefined) effect.blendMode.opacity.value = opacity
-    }, [blendFunction, effect.blendMode, opacity])
-    return <primitive ref={ref} object={effect} dispose={null} />
-  })
+      useLayoutEffect(() => {
+        effect.blendMode.blendFunction = blendFunction || defaultBlendMode
+        if (opacity !== undefined) effect.blendMode.opacity.value = opacity
+      }, [blendFunction, effect.blendMode, opacity])
+      return <primitive ref={ref} object={effect} dispose={null} />
+    }
+  )
 
 export const useVector2 = (props: any, key: string): Vector2 => {
   const vec: ReactThreeFiber.Vector2 = props[key]

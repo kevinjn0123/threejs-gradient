@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Ref, forwardRef, useContext, useMemo } from 'react'
 import { SSAOEffect, BlendFunction } from 'postprocessing'
 import { EffectComposerContext } from '../EffectComposer'
@@ -5,11 +6,16 @@ import { EffectComposerContext } from '../EffectComposer'
 // first two args are camera and texture
 type SSAOProps = ConstructorParameters<typeof SSAOEffect>[2]
 
-export const SSAO = forwardRef<SSAOEffect, SSAOProps>(function SSAO(props: SSAOProps, ref: Ref<SSAOEffect>) {
+export const SSAO = forwardRef<SSAOEffect, SSAOProps>(function SSAO(
+  props: SSAOProps,
+  ref: Ref<SSAOEffect>
+) {
   const { camera, normalPass } = useContext(EffectComposerContext)
   const effect = useMemo(() => {
     if (normalPass === null) {
-      console.error('Please enable the NormalPass in the EffectComposer in order to use SSAO.')
+      console.error(
+        'Please enable the NormalPass in the EffectComposer in order to use SSAO.'
+      )
       return null
     }
     return new SSAOEffect(camera, normalPass.renderTarget.texture, {
