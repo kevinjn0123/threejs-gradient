@@ -1,9 +1,9 @@
-// @ts-nocheck
 import { ShaderMaterial, UniformsUtils } from 'three'
 
 import { Pass, FullScreenQuad } from './Pass'
 import { HalftoneShader } from './HalftoneShader'
-import { BlendFunction } from './BlendFunction'
+// import { BlendFunction } from './BlendFunction'
+import { BlendFunction, BlendMode } from './blending'
 
 /**
  * RGB Halftone pass for three.js effects composer. Requires HalftoneShader.
@@ -35,6 +35,9 @@ class HalftonePass extends Pass {
     }
 
     this.fsQuad = new FullScreenQuad(this.material)
+
+    this.blendMode = new BlendMode(BlendFunction.SCREEN)
+    this.extensions = null
   }
 
   render(renderer, writeBuffer, readBuffer /*, deltaTime, maskActive*/) {
@@ -54,6 +57,32 @@ class HalftonePass extends Pass {
     this.uniforms.width.value = width
     this.uniforms.height.value = height
   }
+
+  initialize(renderer, alpha, frameBufferType) {
+    // this.blurPass.initialize(renderer, alpha, frameBufferType)
+    // if (!alpha && frameBufferType === UnsignedByteType) {
+    //   this.renderTarget.texture.format = RGBFormat
+    // }
+    // if (frameBufferType !== undefined) {
+    //   this.renderTarget.texture.type = frameBufferType
+    // }
+  }
+
+  addEventListener() {}
+
+  getAttributes() {
+    return this.attributes
+  }
+
+  getFragmentShader() {
+    return HalftoneShader.fragmentShader
+  }
+
+  getVertexShader() {
+    return HalftoneShader.vertexShader
+  }
+
+  update(renderer, inputBuffer, deltaTime) {}
 }
 
 export { HalftonePass }
