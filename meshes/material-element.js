@@ -29,18 +29,22 @@ const settings = {
   clearcoatRoughness: 0.5,
   normalScale: 0.01,
   rotation: 0,
+  bloomPass: false,
+  filmPass: true,
+  halftonePass: true,
 };
 const gui = new dat.GUI();
 
 const folder1 = gui.addFolder("Noise");
-const folder2 = gui.addFolder("Rotation");
+const folder2 = gui.addFolder("Material");
 const folder3 = gui.addFolder("Mesh");
 const folder4 = gui.addFolder("Color");
+const folder5 = gui.addFolder("Texture");
 folder1.add(settings, "speed", 0.1, 1, 0.01);
 folder1.add(settings, "density", 0, 10, 0.01);
 folder1.add(settings, "strength", 0, 2, 0.01);
-folder2.add(settings, "frequency", 0, 10, 0.1);
-folder2.add(settings, "amplitude", 0, 10, 0.1);
+folder1.add(settings, "frequency", 0, 10, 0.1);
+folder1.add(settings, "amplitude", 0, 10, 0.1);
 folder2.add(settings, "envMapIntensity", 0, 4, 0.1);
 folder2.add(settings, "roughness", 0, 1, 0.01);
 folder2.add(settings, "metalness", 0, 1, 0.01);
@@ -57,6 +61,9 @@ folder4.add(settings, "color2b", 0, 1, 0.01);
 folder4.add(settings, "color3r", 0, 1, 0.01);
 folder4.add(settings, "color3g", 0, 1, 0.01);
 folder4.add(settings, "color3b", 0, 1, 0.01);
+folder5.add(settings, "bloomPass");
+folder5.add(settings, "filmPass");
+folder5.add(settings, "halftonePass");
 
 export const materialElement = function () {
   var uniforms = {
@@ -84,6 +91,7 @@ export const materialElement = function () {
     metalness: { value: settings.metalness },
     normalScale: { value: settings.normalScale },
     rotation: { value: settings.rotation },
+    bloomPass: { value: settings.bloomPass },
   };
 
   var geometry;

@@ -16,12 +16,6 @@ let composer;
 
 const width = window.innerWidth;
 const height = window.innerHeight;
-const rtParameters = {
-  minFilter: THREE.LinearFilter,
-  magFilter: THREE.LinearFilter,
-  format: THREE.RGBFormat,
-  stencilBuffer: true,
-};
 
 export class Scene {
   constructor() {
