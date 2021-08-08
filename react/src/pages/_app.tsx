@@ -58,6 +58,7 @@ function App({ Component, pageProps = { title: 'index' } }) {
       noiseStrength: 0.1,
       // for gradient-scene
       type: 'plane',
+      env: 'env',
     },
   })
   return (

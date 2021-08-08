@@ -1,10 +1,15 @@
 import * as THREE from 'three'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { useThree, useLoader } from '@react-three/fiber'
 import { HDRCubeTextureLoader } from 'three/examples/jsm/loaders/HDRCubeTextureLoader'
+import { FormContext } from '@/helpers/form-provider'
 
 export function CustomEnvironment({ background = false }) {
   const { gl, scene } = useThree()
+  const ctx: any = useContext(FormContext)
+  const { env } = ctx?.watch()
+  console.log('env', env)
+
   const [cubeMap] = useLoader(
     HDRCubeTextureLoader,
     // 'cayley_interior_2k.hdr',

@@ -26,15 +26,30 @@ export function GUIGradient() {
         >
           <div>
             <input {...ctx.register('type')} type='radio' value='plane' />
-            <label htmlFor='dewey'>Plane</label>
+            <label>Plane</label>
           </div>
           <div>
             <input {...ctx.register('type')} type='radio' value='sphere' />
-            <label htmlFor='dewey'>Sphere</label>
+            <label>Sphere</label>
           </div>
           <div>
             <input {...ctx.register('type')} type='radio' value='waterPlane' />
-            <label htmlFor='dewey'>Water Plane</label>
+            <label>Water Plane</label>
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: 'flex',
+          }}
+        >
+          <div>
+            <input {...ctx.register('env')} type='radio' value='env' />
+            <label>Env</label>
+          </div>
+          <div>
+            <input {...ctx.register('env')} type='radio' value='light' />
+            <label>Light</label>
           </div>
         </div>
       </div>
