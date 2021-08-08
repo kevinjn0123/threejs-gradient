@@ -4,6 +4,7 @@ import { Environment } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
+import { EffectComposer, Noise } from '@/components/pp'
 
 const GradientMesh = dynamic(() => import('@/components/canvas/GradientMesh'), {
   ssr: false,
@@ -33,7 +34,7 @@ function Scene({ r3f }) {
   // scene.background = new THREE.Color(0x000000)
   camera.position.set(2, 4, 1)
 
-  usePostProcessing()
+  // usePostProcessing()
 
   return (
     <Suspense fallback={'Loading...'}>
@@ -43,6 +44,9 @@ function Scene({ r3f }) {
         preset={null}
         background={true}
       />
+      <EffectComposer>
+        <Noise opacity={0.2} />
+      </EffectComposer>
       <GradientMesh />
     </Suspense>
   )
