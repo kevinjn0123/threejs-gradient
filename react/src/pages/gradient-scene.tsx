@@ -32,7 +32,7 @@ export async function getStaticProps() {
 
 function Scene({ r3f }) {
   const ctx: any = useContext(FormContext)
-  const { postProcessing } = ctx?.watch()
+  const { postProcessing, env } = ctx?.watch()
 
   const { camera } = useThree()
   // scene.background = new THREE.Color(0x000000)
@@ -42,12 +42,17 @@ function Scene({ r3f }) {
 
   return (
     <Suspense fallback={'Loading...'}>
-      <Environment
-        files={'cayley_interior_2k.hdr'}
-        path={'/hdr/'}
-        preset={null}
-        background={true}
-      />
+      {env === 'env' ? (
+        <Environment
+          files={'cayley_interior_2k.hdr'}
+          path={'/hdr/'}
+          preset={null}
+          background={true}
+        />
+      ) : (
+        <ambientLight intensity={1} />
+      )}
+
       {postProcessing === 'r3f' && (
         <EffectComposer>
           <Noise opacity={0.2} />
