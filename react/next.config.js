@@ -38,6 +38,10 @@ const nextConfig = {
       use: ['raw-loader', 'glslify-loader'],
     })
 
+    config.experiments = {
+      buildHttp: true,
+    }
+
     return config
   },
 }
