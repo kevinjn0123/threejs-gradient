@@ -27,6 +27,8 @@ const Dom = ({ children }) => {
         <Link href='/scene-1'>scene-1 (moving-gradient)</Link>
         <br />
         <Link href='/gradient-scene'>gradient-scene</Link>
+        <br />
+        <Link href='/package-test'>package-test</Link>
       </ul>
       {children}
     </div>
