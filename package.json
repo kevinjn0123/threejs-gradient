@@ -18,6 +18,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "graadient": "latest",
     "@react-spring/three": "^9.2.4",
     "@react-three/a11y": "^2.1.0",
     "@react-three/drei": "^7.2.1",

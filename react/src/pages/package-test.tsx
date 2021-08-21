@@ -1,10 +1,10 @@
-import { Counter, Box } from 'graadient'
+import { Box, Gradient } from 'graadient'
 
 const Page = () => {
   return (
     <>
-      <Counter />
       <Box r3f />
+      <Gradient r3f />
     </>
   )
 }
