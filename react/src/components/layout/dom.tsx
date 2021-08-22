@@ -28,6 +28,7 @@ const Dom = ({ children }) => {
         <br />
         <Link href='/gradient-scene'>gradient-scene</Link>
         <br />
+        <Link href='/package-test'>package-test</Link>
         <Link href='/landing'>landing page</Link>
       </ul>
       {children}
