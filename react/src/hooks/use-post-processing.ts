@@ -15,7 +15,7 @@ export function usePostProcessing({ on = false }) {
     effectComposer.addPass(new RenderPass(scene, camera))
 
     const bloomPass = new BloomPass(
-      0.1, // strength
+      1, // strength
       25, // kernel size
       4, // sigma ?
       256 // blur render target resolution
