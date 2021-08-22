@@ -29,7 +29,20 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
-      onCreated={(state) => state.events.connect(dom.current)}
+      camera={{
+        fov: 45,
+        near: 0.1,
+        far: 1000,
+        position: [0, 2, 4],
+        matrixWorldNeedsUpdate: true,
+      }}
+      dpr={2} //device pixel ratio - 1 default and fast, 2 detailed and slow
+      linear={true} //sRGBEncoding
+      flat={true} //ACESFilmicToneMapping
+      onCreated={(state) => {
+        state.events.connect(dom.current)
+        console.log(state.camera)
+      }}
     >
       <LControl />
       <A11yUserPreferences>

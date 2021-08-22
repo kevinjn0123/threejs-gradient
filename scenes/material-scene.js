@@ -14,6 +14,7 @@ export class Scene {
       0.1,
       1000
     );
+    console.log(this.camera);
     this.camera.position.set(0, 0, 4);
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });

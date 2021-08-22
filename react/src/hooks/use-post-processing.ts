@@ -20,7 +20,7 @@ export function usePostProcessing({ on = false }) {
       4, // sigma ?
       256 // blur render target resolution
     )
-    effectComposer.addPass(bloomPass)
+    // effectComposer.addPass(bloomPass)
 
     // Create & add a halftone pass
     const halftoneParams = {
